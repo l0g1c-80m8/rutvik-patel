@@ -40,7 +40,9 @@
             "description": "An autonomous mobile robot system for high-mix screwdriving, handling significant uncertainties through physics-informed learning to predict screw-tip dynamics.",
             "tags": ["Tool Manipulation", "Robot Learning", "Manufacturing Automation", "Physics-Informed Learning"],
             "image": "static/assets/screwdriving.jpg",
-            "resources": {}
+            "resources": {
+                "code": "https://github.com/l0g1c-80m8/screw-dynamics-sindy"
+            }
         },
         {
             "type": "workshop",
@@ -49,7 +51,9 @@
             "description": "Proactive failure prediction for lift-and-place tasks, analyzing relative object motion to anticipate failures. This method significantly improves generalization to unseen objects and provides more precise early warnings, validated through both simulation and real-world experiments.",
             "tags": ["Robot Manipulation", "Failure Prediction", "Robot Learning"],
             "image": "static/assets/failure-prediction-poster.jpg",
-            "resources": {}
+            "resources": {
+                "code": "https://github.com/zshanggu/zeyu-FAIL-Detect"
+            }
         },
         {
             "type": "conference",
