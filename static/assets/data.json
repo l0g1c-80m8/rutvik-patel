@@ -39,7 +39,7 @@
             "image": "static/assets/screwdriving.jpg",
             "resources": {
                 "code": "https://github.com/l0g1c-80m8/screw-dynamics-sindy",
-                "paper": "about:blank"
+                "paper": "https://www.researchgate.net/publication/397427698_Autonomous_Robotic_Screwdriving_for_High-Mix_Manufacturing"
             }
         },
         {
