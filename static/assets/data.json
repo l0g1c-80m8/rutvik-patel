@@ -33,7 +33,7 @@
         {
             "type": "journal",
             "title": "Autonomous Robotic Screwdriving for High-Mix Manufacturing",
-            "venue": "Robotics and Computer-Integrated Manufacturing (RCIM)",
+            "venue": "Robotics and Computer-Integrated Manufacturing (RCIM), Volume 96, April 2026",
             "description": "An autonomous mobile robot system for high-mix screwdriving, handling significant uncertainties through physics-informed learning to predict screw-tip dynamics.",
             "tags": ["Tool Manipulation", "Robot Learning", "Manufacturing Automation", "Physics-Informed Learning"],
             "image": "static/assets/screwdriving.jpg",
