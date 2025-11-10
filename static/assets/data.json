@@ -7,10 +7,7 @@
         "title": "Robotics Engineer",
         "subtitle": "Bridging the gap between Research and Real-World Robotics Applications",
         "avatars": [
-            "static/assets/avatar_linkedin.jpeg",
-            "static/assets/avatar_hike.jpg",
-            "static/assets/avatar_github.png",
-            "static/assets/avatar_lit.jpg"
+            "static/assets/avatar_hike.jpg"
         ]
     },
     "about-section": {
