@@ -52,7 +52,8 @@
             "tags": ["Robot Manipulation", "Failure Prediction", "Robot Learning"],
             "image": "static/assets/failure-prediction-poster.jpg",
             "resources": {
-                "code": "https://github.com/zshanggu/zeyu-FAIL-Detect"
+                "code": "https://github.com/zshanggu/zeyu-failure-prediction",
+                "paper": "https://openreview.net/forum?id=8YqULXPS6r"
             }
         },
         {
