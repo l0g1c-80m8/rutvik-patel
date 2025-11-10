@@ -41,7 +41,8 @@
             "tags": ["Tool Manipulation", "Robot Learning", "Manufacturing Automation", "Physics-Informed Learning"],
             "image": "static/assets/screwdriving.jpg",
             "resources": {
-                "code": "https://github.com/l0g1c-80m8/screw-dynamics-sindy"
+                "code": "https://github.com/l0g1c-80m8/screw-dynamics-sindy",
+                "paper": "about:blank"
             }
         },
         {
