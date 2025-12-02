@@ -212,7 +212,7 @@
                 "items": [
                     "Future-proofed for real-time deployments",
                     "Improved system modularity and separation of concerns",
-                    "Reduced technical debt by removing deprecated ROS 1 APIs"
+                    "Enhanced code maintainability through modern ROS 2 design patterns"
                 ]
             },
             "buttons": []
