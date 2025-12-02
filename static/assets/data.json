@@ -221,7 +221,7 @@
             "title": "Surface Reconstruction for Robotic Finishing",
             "company": "GrayMatter Robotics",
             "companyLogo": "static/assets/company-logos/gmr.png",
-            "description": "Designed a robust surface reconstruction pipeline for industrial robotic applications aimed at automating complex surface finishing tasks such as sanding, grinding, and polishing. The system fuses multi-sensor data to generate high-fidelity 3D surface models, enabling accurate toolpath planning on freeform and irregular geometries. The algorithm explores SLAM, implicit surface modeling, and deep learning for generalization across materials and shapes.",
+            "description": "Prototyped a robust surface reconstruction pipeline for industrial robotic applications aimed at automating complex surface finishing tasks such as sanding, grinding, and polishing. The system fuses multi-sensor data to generate high-fidelity 3D surface models, enabling accurate toolpath planning on freeform and irregular geometries. The algorithm explores SLAM, implicit surface modeling, and deep learning for generalization across materials and shapes.",
             "icon": "fas fa-cubes",
             "iconBackground": "bg-gradient-to-r from-emerald-500 to-teal-400",
             "leftColumn": {
@@ -231,7 +231,8 @@
             "rightColumn": {
                 "title": "Performance Metrics",
                 "items": [
-                    "Coming soon!"
+                    "Average surface deviation ~ 1.0 mm",
+                    "Generalizes to diverse geometries and materials"
                 ]
             },
             "buttons": []
