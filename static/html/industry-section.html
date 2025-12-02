@@ -8,11 +8,25 @@
       <% _.forEach(industryProjects, function(project) { %>
         <div class="bg-dark-card rounded-xl p-8 border border-gray-800 hover:border-robot-blue/50 transition-all">
           <div class="flex items-start space-x-4">
-            <div class="<%= project.iconBackground %> p-3 rounded-xl">
-              <i class="<%= project.icon %> text-2xl text-white"></i>
+            <div class="flex flex-col items-center space-y-3">
+              <!-- Company Logo -->
+              <% if (project.companyLogo) { %>
+                <div class="w-12 h-12 bg-white rounded-lg flex items-center justify-center p-2">
+                  <img src="<%= project.companyLogo %>" alt="<%= project.company || 'Company' %> logo" class="max-w-full max-h-full object-contain" />
+                </div>
+              <% } %>
+              <!-- Project Icon -->
+              <div class="<%= project.iconBackground %> p-3 rounded-xl">
+                <i class="<%= project.icon %> text-2xl text-white"></i>
+              </div>
             </div>
             <div class="flex-1">
-              <h3 class="text-2xl font-semibold mb-3"><%= project.title %></h3>
+              <div class="flex items-center gap-2 mb-3">
+                <h3 class="text-2xl font-semibold"><%= project.title %></h3>
+                <% if (project.company) { %>
+                  <span class="text-sm text-gray-400 bg-gray-800 px-2 py-1 rounded">@ <%= project.company %></span>
+                <% } %>
+              </div>
               <p class="text-gray-300 mb-4"><%= project.description %></p>
 
               <div class="grid grid-cols-2 gap-4 mb-6">

@@ -175,6 +175,8 @@
     "industry-section": [
         {
             "title": "Robotic Cell Calibration",
+            "company": "GrayMatter Robotics",
+            "companyLogo": "static/assets/company-logos/gmr.png",
             "description": "Designed and implemented a high-precision calibration pipeline for an industrial robotic cell involving multiple manipulators and external sensors. The system integrated Leica laser scanners and Fanuc robots to achieve accurate spatial alignment across tools, workpieces, and vision systems, enabling coordinated multi-robot operations.",
             "icon": "fas fa-industry",
             "iconBackground": "bg-gradient-to-r from-robot-blue to-robot-purple",
@@ -196,6 +198,8 @@
         },
         {
             "title": "ROS 2 Migration & Refactoring",
+            "company": "GrayMatter Robotics",
+            "companyLogo": "static/assets/company-logos/gmr.png",
             "description": "Led the full migration of a large industrial robotics codebase from ROS Noetic (ROS 1) to ROS 2 Humble. This included redesigning node communication patterns, migrating launch and parameter systems, refactoring legacy packages, and ensuring real-time and deterministic performance across distributed components.",
             "icon": "fas fa-diagram-project",
             "iconBackground": "bg-gradient-to-r from-amber-500 to-rose-500",
@@ -215,6 +219,8 @@
         },
         {
             "title": "Surface Reconstruction for Robotic Finishing",
+            "company": "GrayMatter Robotics",
+            "companyLogo": "static/assets/company-logos/gmr.png",
             "description": "Designed a robust surface reconstruction pipeline for industrial robotic applications aimed at automating complex surface finishing tasks such as sanding, grinding, and polishing. The system fuses multi-sensor data to generate high-fidelity 3D surface models, enabling accurate toolpath planning on freeform and irregular geometries. The algorithm explores SLAM, implicit surface modeling, and deep learning for generalization across materials and shapes.",
             "icon": "fas fa-cubes",
             "iconBackground": "bg-gradient-to-r from-emerald-500 to-teal-400",
