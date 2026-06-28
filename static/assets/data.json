@@ -5,10 +5,7 @@
     },
     "hero-section": {
         "title": "Robotics Engineer",
-        "subtitle": "Bridging the gap between Research and Real-World Robotics Applications",
-        "avatars": [
-            "static/assets/avatar_hike.jpg"
-        ]
+        "subtitle": "Bridging the gap between Research and Real-World Robotics Applications"
     },
     "about-section": {
         "about_lead": "I am a roboticist with demonstrated experience of working at hyper-growth startups. I am passionate about building technology-driven solutions to real-world challenges, particularly in the domains of manufacturing 🏭, agriculture 🌳 and space 🚀. I am eager to learn from mentors and peers who share my enthusiasm and vision.",
@@ -176,10 +173,7 @@
         {
             "title": "Robotic Cell Calibration",
             "company": "GrayMatter Robotics",
-            "companyLogo": "static/assets/company-logos/gmr.png",
             "description": "Designed and implemented a high-precision calibration pipeline for an industrial robotic cell involving multiple manipulators and external sensors. The system integrated Leica laser scanners and Fanuc robots to achieve accurate spatial alignment across tools, workpieces, and vision systems, enabling coordinated multi-robot operations.",
-            "icon": "fas fa-industry",
-            "iconBackground": "bg-gradient-to-r from-robot-blue to-robot-purple",
             "leftColumn": {
                 "title": "Components and Tools",
                 "items": ["Leica Laser Scanner", "Fanuc M-720", "Fanuc CRX-10", "PolyWorks Inspector"]
@@ -199,10 +193,7 @@
         {
             "title": "ROS 2 Migration & Refactoring",
             "company": "GrayMatter Robotics",
-            "companyLogo": "static/assets/company-logos/gmr.png",
             "description": "Led the full migration of a large industrial robotics codebase from ROS Noetic (ROS 1) to ROS 2 Humble. This included redesigning node communication patterns, migrating launch and parameter systems, refactoring legacy packages, and ensuring real-time and deterministic performance across distributed components.",
-            "icon": "fas fa-diagram-project",
-            "iconBackground": "bg-gradient-to-r from-amber-500 to-rose-500",
             "leftColumn": {
                 "title": "Migrated Components",
                 "items": ["Architecture Refactoring", "Lifecycle Nodes", "Launch Files", "Parameter Interfaces"]
@@ -220,10 +211,7 @@
         {
             "title": "Surface Reconstruction for Robotic Finishing",
             "company": "GrayMatter Robotics",
-            "companyLogo": "static/assets/company-logos/gmr.png",
             "description": "Prototyped a robust surface reconstruction pipeline for industrial robotic applications aimed at automating complex surface finishing tasks such as sanding, grinding, and polishing. The system fuses multi-sensor data to generate high-fidelity 3D surface models, enabling accurate toolpath planning on freeform and irregular geometries. The algorithm explores SLAM, implicit surface modeling, and deep learning for generalization across materials and shapes.",
-            "icon": "fas fa-cubes",
-            "iconBackground": "bg-gradient-to-r from-emerald-500 to-teal-400",
             "leftColumn": {
                 "title": "Technologies Leveraged",
                 "items": ["Multi-View SLAM", "Convex Optimization", "Implicit Surfaces", "Deep Learning"]

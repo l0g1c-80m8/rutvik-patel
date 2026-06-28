@@ -436,17 +436,62 @@ nav.tlm-nav.scrolled {
 .tlm-hero-prompt .path { color: var(--signal); }
 .tlm-hero-prompt .cmd  { color: var(--ink); }
 
+.tlm-hero-id {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  margin-bottom: 28px;
+}
+
 .tlm-hero-name {
   font-family: var(--mono);
   font-weight: 700;
   font-size: clamp(3rem, 9vw, 6rem);
   letter-spacing: -0.03em;
   line-height: 0.95;
-  margin-bottom: 28px;
   color: var(--signal-bright);
   text-shadow:
     0 0 12px rgba(51, 255, 136, 0.45),
     0 0 36px rgba(34, 214, 123, 0.25);
+}
+
+.tlm-hero-avatar {
+  margin: 0;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+}
+.tlm-hero-avatar img {
+  display: block;
+  width: 84px;
+  height: 84px;
+  object-fit: cover;
+  border: 1px solid var(--signal);
+  background: var(--bg);
+  /* duotone-style phosphor wash: collapse to luminance, push to amber,
+     rotate into green. Source colour cast (red, here) is discarded. */
+  filter:
+    grayscale(1)
+    sepia(1)
+    hue-rotate(75deg)
+    saturate(1.8)
+    brightness(0.95)
+    contrast(1.05);
+}
+.tlm-hero-avatar figcaption {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: lowercase;
+  color: var(--ink-mute);
+}
+
+@media (max-width: 640px) {
+  .tlm-hero-id { gap: 20px; }
+  .tlm-hero-avatar img { width: 64px; height: 64px; }
 }
 
 .tlm-hero-name .cursor {
@@ -809,11 +854,10 @@ footer.tlm-footer {
 }
 
 /* -------------------------------------------------------------------------
-   Re-skin of legacy components (so un-refactored sections still cohere)
+   Re-skin of legacy Tailwind-styled sections (about / personal / contact)
    ------------------------------------------------------------------------- */
 
-/* kill all the old gradient / glow tells from old stylesheet rules */
-.gradient-text,
+/* drop gradient text-fill on legacy h2's */
 .bg-clip-text {
   background: none !important;
   -webkit-background-clip: initial !important;
@@ -822,9 +866,7 @@ footer.tlm-footer {
   color: var(--ink) !important;
 }
 
-/* old "card" variants → hairline boxes */
-.publication-card,
-.project-card,
+/* legacy "card" containers (about, personal, contact) → hairline boxes */
 .bg-dark-card {
   background: transparent !important;
   border: 1px solid var(--rule) !important;
@@ -834,69 +876,15 @@ footer.tlm-footer {
   position: relative;
   overflow: hidden;
 }
-
-.publication-card:hover,
-.project-card:hover,
 .bg-dark-card:hover {
   border-color: var(--signal) !important;
   transform: none !important;
   box-shadow: none !important;
 }
+.bg-dark-card::before { display: none !important; }
 
-.publication-card::before,
-.project-card::before,
-.bg-dark-card::before {
-  display: none !important;
-}
-
-.card-hover { transform: none !important; box-shadow: none !important; }
-
-/* legacy buttons → terminal action */
-.btn-primary,
-.btn-secondary {
-  background: transparent !important;
-  border: 1px solid var(--signal) !important;
-  border-radius: 0 !important;
-  color: var(--signal) !important;
-  font-family: var(--mono);
-  text-transform: lowercase;
-  letter-spacing: 0.04em;
-  padding: 10px 18px;
-  box-shadow: none !important;
-}
-.btn-primary::before { display: none !important; }
-.btn-primary:hover,
-.btn-secondary:hover {
-  background: var(--signal) !important;
-  color: var(--bg) !important;
-  transform: none !important;
-}
-
-/* legacy filter chips */
-.publication-filter {
-  border-radius: 0;
-  border-color: var(--rule);
-  color: var(--ink-mute);
-  font-family: var(--mono);
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-}
-.publication-filter:hover {
-  border-color: var(--signal);
-  color: var(--signal);
-  background: transparent;
-}
-.publication-filter.active {
-  background: var(--signal) !important;
-  color: var(--bg) !important;
-  border-color: var(--signal) !important;
-}
-
-/* legacy tags → hairline rectangles */
-.tag,
-span.bg-dark-card,
-span.bg-dark-bg {
+/* skill chips inside about-section (rendered as spans with bg-dark-card) */
+span.bg-dark-card {
   background: transparent !important;
   border: 1px solid var(--rule) !important;
   border-radius: 0 !important;
@@ -908,81 +896,7 @@ span.bg-dark-bg {
   padding: 3px 8px !important;
 }
 
-.tag:hover { transform: none; border-color: var(--signal) !important; color: var(--signal) !important; }
-
-/* Industry section: render company logos as-is on black with a phosphor hairline border */
-section#work .bg-white {
-  background: #000 !important;
-  border: 1px solid var(--signal) !important;
-  border-radius: 0 !important;
-  padding: 4px !important;
-}
-
-section#work .bg-white img {
-  filter: none;
-  mix-blend-mode: normal;
-}
-
-/* legacy timeline dots */
-.timeline::before {
-  background: var(--rule) !important;
-}
-.timeline-item::before {
-  background: var(--signal) !important;
-  box-shadow: none !important;
-}
-
-/* legacy section divider */
-.section-divider {
-  background: var(--rule) !important;
-  height: 1px;
-  margin: 64px 0;
-}
-
-/* legacy code block — drop the mac traffic lights */
-.code-block {
-  background: var(--bg-elev);
-  border: 1px solid var(--rule);
-  border-radius: 0;
-  padding: 16px 20px;
-}
-.code-block::before { display: none !important; }
-
-/* form inputs */
-.form-input,
-.form-textarea,
-#search-input {
-  background: var(--bg-elev);
-  border: 1px solid var(--rule);
-  border-radius: 0;
-  color: var(--ink);
-  font-family: var(--mono);
-}
-.form-input:focus,
-.form-textarea:focus,
-#search-input:focus {
-  border-color: var(--signal);
-  box-shadow: none;
-}
-
-/* media buttons */
-.media-btn {
-  background: transparent;
-  border: 1px solid var(--rule);
-  border-radius: 0;
-  color: var(--ink-mute);
-  font-family: var(--mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.04em;
-}
-.media-btn:hover {
-  background: transparent;
-  border-color: var(--signal);
-  color: var(--signal);
-  transform: none;
-}
-
-/* back-to-top */
+/* back-to-top button (created in script.js) */
 .back-to-top {
   background: var(--bg-elev) !important;
   border: 1px solid var(--rule) !important;
@@ -995,48 +909,13 @@ section#work .bg-white img {
   background: var(--signal) !important;
   color: var(--bg) !important;
   transform: none !important;
-  box-shadow: none !important;
 }
 
 /* scrollbar */
 ::-webkit-scrollbar { width: 8px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
-::-webkit-scrollbar-thumb {
-  background: var(--rule-strong);
-  border-radius: 0;
-}
+::-webkit-scrollbar-thumb { background: var(--rule-strong); border-radius: 0; }
 ::-webkit-scrollbar-thumb:hover { background: var(--signal); }
-
-/* legacy gradient utilities → solid */
-.gradient-hero,
-.gradient-robot {
-  background: var(--bg) !important;
-}
-
-/* hide legacy starfield container if present */
-.starfield-bg { display: none !important; }
-
-/* avatar (hero) → keep image but kill the gradient ring */
-.hero-image,
-#hero-avatar {
-  border-radius: 0;
-}
-
-/* -------------------------------------------------------------------------
-   Motion budget
-   ------------------------------------------------------------------------- */
-.fade-in  { animation: tlm-fade 320ms ease-out both; }
-.slide-up { animation: tlm-slide 360ms ease-out both; }
-.scale-in { animation: tlm-fade 320ms ease-out both; }
-
-@keyframes tlm-fade {
-  from { opacity: 0; transform: translateY(4px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-@keyframes tlm-slide {
-  from { opacity: 0; transform: translateY(12px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
 
 /* reduced motion */
 @media (prefers-reduced-motion: reduce) {
