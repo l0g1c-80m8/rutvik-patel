@@ -28,6 +28,17 @@
     },
     "research-section": [
         {
+            "type": "conference",
+            "title": "PREFAIL: Identifying Precursors to Failures in Robotic Lift-and-Place Tasks to Improve Task Execution Performance",
+            "venue": "2026 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS) — under review",
+            "description": "A failure-prediction system for high-speed non-prehensile lift-and-place tasks. PREFAIL analyzes relative motion between a target object and its carrier to predict continuous risk values, and introduces a dataset that precisely labels the latest moment an emergency stop can still avert failure — enabling rigorous evaluation of whether a prediction is actionable. Validated in simulation and on real hardware.",
+            "tags": ["Non-prehensile Manipulation", "Failure Prediction", "Robot Learning", "Manipulation"],
+            "image": "static/assets/prefail.gif",
+            "resources": {
+                "site": "https://prefail.github.io/prefail/"
+            }
+        },
+        {
             "type": "journal",
             "title": "Autonomous Robotic Screwdriving for High-Mix Manufacturing",
             "venue": "Robotics and Computer-Integrated Manufacturing (RCIM), Volume 96, April 2026",
