@@ -1,25 +1,33 @@
-<section id="research" class="py-20 px-6 bg-dark-card/30">
-  <div class="container mx-auto max-w-6xl">
-    <h2 class="text-4xl font-bold text-center mb-16 bg-gradient-to-r from-robot-blue to-robot-purple bg-clip-text text-transparent">
-      Research & Publications
-    </h2>
+<section id="research">
+  <div class="section-wrap">
 
-    <!-- Filter Tabs -->
-    <div class="flex flex-wrap justify-center mb-12">
-      <div class="bg-dark-card rounded-s-4xl p-1 border border-gray-800">
-        <div class="flex flex-wrap justify-center gap-1">
-          <button class="publication-filter active px-6 py-2 rounded-full transition-all" data-filter="all">All</button>
-          <button class="publication-filter px-6 py-2 rounded-full transition-all" data-filter="conference">Conference</button>
-          <button class="publication-filter px-6 py-2 rounded-full-4xl transition-all" data-filter="journal">Journal</button>
-          <button class="publication-filter px-6 py-2 rounded-full-4xl transition-all" data-filter="workshop">Workshop</button>
-        </div>
+    <div class="section-header">
+      <div>
+        <span class="index">§ 03 / 07</span>
+        &nbsp;&mdash;&nbsp;
+        <span class="title">RESEARCH</span>
       </div>
+      <div>N=<span id="research-count">--</span> · PAPERS</div>
     </div>
 
-    <div id="publications-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-      <% publications.forEach(function(paper) { %>
-        <%= "" %>
-      <% }); %>
+    <div class="tlm-filters" data-tlm-filters>
+      <button class="tlm-filter is-active" data-filter="all">[ all ]</button>
+      <button class="tlm-filter"           data-filter="journal">[ journal ]</button>
+      <button class="tlm-filter"           data-filter="conference">[ conference ]</button>
+      <button class="tlm-filter"           data-filter="workshop">[ workshop ]</button>
     </div>
+
+    <div class="tlm-table" role="table" aria-label="research publications">
+      <div class="tlm-table-head" role="row">
+        <span class="col-idx">idx</span>
+        <span class="col-yr">yr</span>
+        <span class="col-title">title</span>
+        <span class="col-venue">venue</span>
+        <span class="col-type">type</span>
+        <span class="col-act">↗</span>
+      </div>
+      <div id="research-rows"></div>
+    </div>
+
   </div>
 </section>

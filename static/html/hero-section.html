@@ -1,30 +1,38 @@
-<section id="home" class="min-h-screen flex items-center justify-center pt-20 px-6">
-    <div class="text-center max-w-4xl mx-auto">
-        <div class="relative mb-8">
-            <div class="w-48 h-48 mx-auto rounded-full bg-gradient-to-r from-robot-blue to-robot-purple p-1">
-                <img
-                    id="hero-avatar"
-                    src="static/assets/avatar_linkedin.jpeg"
-                    alt="Rutvik Patel"
-                    class="w-full h-full object-cover rounded-full hero-image fade-in"
-                />
-            </div>
-        </div>
-        <h1 class="text-5xl md:text-7xl font-bold mb-6">
-            <span class="bg-gradient-to-r from-robot-blue to-robot-purple bg-clip-text text-transparent">
-                ${title}
-            </span>
-        </h1>
-        <p class="text-xl md:text-2xl text-gray-300 mb-8 leading-relaxed">
-            ${subtitle}
-        </p>
-        <div class="flex flex-wrap justify-center gap-4">
-            <a href="#research" class="bg-gradient-to-r from-robot-blue to-robot-purple px-8 py-3 rounded-full font-semibold hover:scale-105 transition-transform inline-block text-center">
-                View My Work
-            </a>
-            <a href="https://docs.google.com/document/d/1JKCgEzfOHy-LSHuaKEuqknPWnlCl-vYp/edit?usp=sharing&ouid=102852500589505457106&rtpof=true&sd=true" target="_blank" rel="noopener noreferrer" class="border border-gray-600 px-8 py-3 rounded-full font-semibold hover:border-robot-blue transition-colors inline-block text-center">
-                Download CV
-            </a>
-        </div>
+<section id="home" class="tlm-hero">
+  <div class="tlm-hero-inner">
+
+    <div class="tlm-hero-prompt">
+      <div class="left">
+        <span class="path">~/rutvik-patel</span>
+        <span>$</span>
+        <span class="cmd">whoami</span>
+      </div>
+      <div>BUILD ${build} · LAST DEPLOY ${deploy}</div>
     </div>
+
+    <h1 class="tlm-hero-name">
+      rutvik patel<span class="cursor">.</span>
+    </h1>
+
+    <div class="tlm-hero-lines">
+      <div class="line">${title}</div>
+      <div class="line">${subtitle}</div>
+    </div>
+
+    <div class="tlm-hero-actions">
+      <a class="tlm-action primary" href="#research">→ publications</a>
+      <a class="tlm-action" href="https://docs.google.com/document/d/1JKCgEzfOHy-LSHuaKEuqknPWnlCl-vYp/edit?usp=sharing&ouid=102852500589505457106&rtpof=true&sd=true" target="_blank" rel="noopener noreferrer">↗ cv.pdf</a>
+      <a class="tlm-action" href="https://github.com/l0g1c-80m8" target="_blank" rel="noopener noreferrer">↗ github</a>
+      <a class="tlm-action" href="#contact">↗ contact</a>
+    </div>
+
+    <div class="tlm-hero-meta">
+      <div><span class="k">role</span><span class="v">roboticist</span></div>
+      <div><span class="k">domain</span><span class="v">autonomy · manipulation</span></div>
+      <div><span class="k">based</span><span class="v">san francisco, ca</span></div>
+      <div><span class="k">status</span><span class="v">open to collab</span></div>
+    </div>
+
+    <img id="hero-avatar" src="static/assets/avatar_linkedin.jpeg" alt="Rutvik Patel" style="display:none;" />
+  </div>
 </section>

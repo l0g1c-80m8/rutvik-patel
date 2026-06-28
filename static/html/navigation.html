@@ -1,38 +1,33 @@
-<nav class="fixed top-0 w-full bg-dark-bg/95 backdrop-blur-sm border-b border-gray-800 z-50">
-        <div class="container mx-auto px-6 py-4">
-            <div class="flex justify-between items-center">
-                <div class="flex items-center space-x-3">
-                    <div class="w-10 h-10 rounded-full bg-gradient-to-r from-robot-blue to-robot-purple flex items-center justify-center">
-                        <i class="fas fa-robot fa-bounce text-xl text-stone-50"></i>
-                    </div>
-                    <div class="text-2xl font-bold bg-gradient-to-r from-robot-blue to-robot-purple bg-clip-text text-transparent">
-                        rutvik-patel
-                    </div>
-                </div>
-                <div class="hidden md:flex space-x-8">
-                    <a href="#home" class="nav-link hover:text-robot-blue transition-colors">Home</a>
-                    <a href="#about" class="nav-link hover:text-robot-blue transition-colors">About</a>
-                    <a href="#research" class="nav-link hover:text-robot-blue transition-colors">Research</a>
-                    <a href="#projects" class="nav-link hover:text-robot-blue transition-colors">Projects</a>
-                    <a href="#work" class="nav-link hover:text-robot-blue transition-colors">Industry Work</a>
-                    <a href="#personal" class="nav-link hover:text-robot-blue transition-colors">Personal</a>
-                    <a href="#contact" class="nav-link hover:text-robot-blue transition-colors">Contact</a>
-                </div>
-                <button id="mobile-menu-btn" class="md:hidden text-2xl">
-                    <i class="fas fa-bars"></i>
-                </button>
-            </div>
-            <!-- Mobile Menu -->
-            <div id="mobile-menu" class="hidden md:hidden mt-4 pb-4 border-t border-gray-800">
-                <div class="flex flex-col space-y-3 mt-4">
-                    <a href="#home" class="nav-link hover:text-robot-blue transition-colors">Home</a>
-                    <a href="#about" class="nav-link hover:text-robot-blue transition-colors">About</a>
-                    <a href="#research" class="nav-link hover:text-robot-blue transition-colors">Research</a>
-                    <a href="#projects" class="nav-link hover:text-robot-blue transition-colors">Projects</a>
-                    <a href="#work" class="nav-link hover:text-robot-blue transition-colors">Industry Work</a>
-                    <a href="#personal" class="nav-link hover:text-robot-blue transition-colors">Personal</a>
-                    <a href="#contact" class="nav-link hover:text-robot-blue transition-colors">Contact</a>
-                </div>
-            </div>
-        </div>
-    </nav>
+<nav class="tlm-nav" data-tlm-nav>
+  <div class="tlm-nav-row">
+    <a href="#home" class="tlm-nav-brand">
+      <span class="node-id">[NODE-0001]</span>
+      <span>rutvik-patel</span>
+    </a>
+
+    <div class="tlm-nav-links">
+      <a href="#about"    data-section="about">about</a>
+      <a href="#research" data-section="research">research</a>
+      <a href="#projects" data-section="projects">projects</a>
+      <a href="#work"     data-section="work">industry</a>
+      <a href="#personal" data-section="personal">personal</a>
+      <a href="#contact"  data-section="contact">contact</a>
+    </div>
+
+    <div class="status-pip" aria-label="status indicator">
+      <span class="dot"></span>
+      <span>ONLINE · 2026</span>
+    </div>
+
+    <button class="tlm-nav-burger" id="mobile-menu-btn" aria-label="menu">MENU</button>
+  </div>
+
+  <div class="tlm-mobile-menu" id="mobile-menu">
+    <a href="#about">about</a>
+    <a href="#research">research</a>
+    <a href="#projects">projects</a>
+    <a href="#work">industry</a>
+    <a href="#personal">personal</a>
+    <a href="#contact">contact</a>
+  </div>
+</nav>

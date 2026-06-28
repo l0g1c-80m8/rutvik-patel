@@ -17,6 +17,11 @@
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 
+    <!-- Fonts: JetBrains Mono for headlines/data, Inter for prose -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
     <!-- Favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="/static/assets/favicon_io/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/static/assets/favicon_io/favicon-32x32.png">
@@ -27,18 +32,27 @@
     <!-- Stylesheet -->
     <link rel="stylesheet" href="static/css/stylesheet.css">
 
-    <!-- Tailwind Config -->
+    <!-- Tailwind Config (legacy aliases mapped to Telemetry tokens for un-refactored sections) -->
     <script>
         tailwind.config = {
             darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
-                        'robot-blue': '#00d4ff',
-                        'robot-purple': '#8b5cf6',
-                        'dark-bg': '#0f0f0f',
-                        'dark-card': '#1a1a1a',
-                        'dark-hover': '#2a2a2a'
+                        'robot-blue':   '#22D67B',
+                        'robot-purple': '#22D67B',
+                        'robot-green':  '#22D67B',
+                        'signal':       '#22D67B',
+                        'dark-bg':      '#07080A',
+                        'dark-card':    '#0E1013',
+                        'dark-hover':   '#1C1F24',
+                        'rule':         '#1C1F24',
+                        'ink':          '#E7E5E0',
+                        'ink-mute':     '#8A8F98'
+                    },
+                    fontFamily: {
+                        mono: ['JetBrains Mono', 'ui-monospace', 'Menlo', 'monospace'],
+                        sans: ['Inter', 'system-ui', 'sans-serif']
                     }
                 }
             }
@@ -62,11 +76,11 @@
 </head>
 <body class="dark bg-dark-bg text-gray-100 font-sans">
 
-    <!-- Starfield Background -->
-    <div class="starfield-bg">
-        <canvas id="starfield"></canvas>
-        <div class="nebula-overlay"></div>
-    </div>
+    <!-- Telemetry background: layered dot-grid (multi-scale + slight rotation) -->
+    <div class="grid-bg"></div>
+    <div class="grid-bg-anchors"></div>
+    <div class="grid-bg-vignette"></div>
+    <div class="grid-bg-scanlines"></div>
 
     <!-- Navigation -->
     <portfolio-navigation></portfolio-navigation>
@@ -93,9 +107,6 @@
     <contact-section></contact-section>
 
     <!-- Footer -->
-    <portfolio-footer name="Rutvik Patel" tagline="Built with precision, driven by purpose."></portfolio-footer>
-
-    <!-- Starfield Animation -->
-    <script src="static/js/starfield.js"></script>
+    <portfolio-footer name="Rutvik Patel" tagline="Built with discipline, driven by purpose."></portfolio-footer>
 </body>
 </html>

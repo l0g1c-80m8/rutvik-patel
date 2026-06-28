@@ -1,118 +1,115 @@
 class ResearchSection extends HTMLElement {
     async connectedCallback() {
         const html = await window.templateLoader.loadTemplate('static/html/research-section.html');
-        if (html) {
-            try {
-                const response = await fetch('static/assets/data.json');
-                const rawData = await response.json();
+        if (!html) {
+            window.dynamicComponentTracker.markLoaded();
+            return;
+        }
 
-                const papers = rawData["research-section"];
+        try {
+            const response = await fetch('static/assets/data.json');
+            const rawData = await response.json();
+            this.papers = (rawData['research-section'] || []).map((p, i) => ({
+                ...p,
+                idx:        `P-${String(i + 1).padStart(3, '0')}`,
+                year:       this.extractYear(p.venue),
+                venueShort: this.shortenVenue(p.venue),
+            }));
 
-                const defaultFilter = this.getAttribute('default-filter') || 'all';
+            this.innerHTML = html;
+            this.querySelector('#research-count').textContent = String(this.papers.length).padStart(2, '0');
 
-                const filtered = defaultFilter === 'all'
-                    ? papers
-                    : papers.filter(p => p.type === defaultFilter);
-
-                const dataForTemplate = {
-                    publications: filtered
-                };
-
-                const compiledTemplate = _.template(html);
-                this.innerHTML = compiledTemplate(dataForTemplate);
-
-                this.initializeFilter(papers, defaultFilter);
-            } catch (error) {
-                console.error('Error loading or processing research section data:', error);
-                const compiledTemplate = _.template(html);
-                this.innerHTML = compiledTemplate({ publications: [] });
-            } finally {
-                window.dynamicComponentTracker.markLoaded();
-            }
+            this.activeFilter = 'all';
+            this.expanded = new Set();
+            this.render();
+            this.wireFilters();
+        } catch (error) {
+            console.error('Error loading research data:', error);
+            this.innerHTML = html;
+        } finally {
+            window.dynamicComponentTracker.markLoaded();
         }
     }
 
-    initializeFilter(publications, defaultFilter = 'all') {
-    const filterButtons = this.querySelectorAll('.publication-filter');
-    const gridContainer = this.querySelector('#publications-grid');
-
-    // Set up button click handlers
-    filterButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const filter = button.getAttribute('data-filter');
-
-            // Toggle active class
-            filterButtons.forEach(btn => btn.classList.remove('active'));
-            button.classList.add('active');
-
-            const filtered = filter === 'all'
-                ? publications
-                : publications.filter(p => p.type === filter);
-
-            // Render cards
-            gridContainer.innerHTML = filtered
-                .map(pub => this.createCard(pub))
-                .join('');
-        });
-    });
-
-    const defaultBtn = [...filterButtons].find(btn => btn.getAttribute('data-filter') === defaultFilter);
-    if (defaultBtn) {
-        defaultBtn.click(); // Simulate a user click
+    extractYear(venue) {
+        const m = (venue || '').match(/\b(20\d{2})\b/);
+        return m ? m[1] : '----';
     }
-}
 
+    shortenVenue(venue) {
+        if (!venue) return '';
+        // pull abbreviation from parentheses if present
+        const paren = venue.match(/\(([^)]+)\)/);
+        if (paren) {
+            // strip volume/year noise from the abbreviation
+            const cleaned = paren[1].split(/[, ]/)[0].toUpperCase();
+            const volMatch = venue.match(/Vol(?:ume)?\.?\s*(\d+)/i);
+            return volMatch ? `${cleaned} v.${volMatch[1]}` : cleaned;
+        }
+        // fallback: first significant word that looks like an acronym
+        const acro = venue.match(/\b([A-Z]{2,})\b/);
+        return acro ? acro[1] : venue.split(/\s+/).slice(0, 3).join(' ');
+    }
 
-    createCard(paper) {
-        const tagColors = {
-            conference: 'robot-blue',
-            journal: 'green-500',
-            workshop: 'purple-500',
-        };
+    wireFilters() {
+        this.querySelectorAll('.tlm-filter').forEach(btn => {
+            btn.addEventListener('click', () => {
+                this.activeFilter = btn.dataset.filter;
+                this.querySelectorAll('.tlm-filter').forEach(b =>
+                    b.classList.toggle('is-active', b === btn));
+                this.render();
+            });
+        });
+    }
 
-        const bgGradient = {
-            conference: 'from-robot-blue/20 to-robot-purple/20',
-            journal: 'from-green-500/20 to-blue-500/20',
-            workshop: 'from-purple-500/20 to-pink-500/20',
-        };
+    render() {
+        const filtered = this.activeFilter === 'all'
+            ? this.papers
+            : this.papers.filter(p => p.type === this.activeFilter);
 
-        const resourceIcons = {
-            paper: 'fas fa-file-pdf',
-            code: 'fab fa-github',
-            video: 'fas fa-video',
-            demo: 'fas fa-video',
-            site: 'fas fa-external-link-alt'
-        };
+        const rows = this.querySelector('#research-rows');
+        rows.innerHTML = filtered.map(p => this.renderRow(p)).join('');
 
-        const resources = Object.entries(paper.resources || {}).map(([key, url]) => {
-            const icon = resourceIcons[key] || 'fas fa-link';
-            const label = key.charAt(0).toUpperCase() + key.slice(1);
-            return `<a href="${url}" target="_blank" rel="noopener" class="text-robot-blue hover:text-robot-purple transition-colors">
-                        <i class="${icon}"></i> ${label}
-                    </a>`;
+        rows.querySelectorAll('.tlm-row').forEach(row => {
+            row.addEventListener('click', e => {
+                if (e.target.closest('a')) return; // don't toggle when clicking a resource link
+                const idx = row.dataset.idx;
+                if (this.expanded.has(idx)) this.expanded.delete(idx);
+                else this.expanded.add(idx);
+                this.render();
+            });
+        });
+    }
+
+    renderRow(p) {
+        const open = this.expanded.has(p.idx);
+        const tags = (p.tags || []).map(t => `<span class="tlm-tag">${t}</span>`).join('');
+        const resources = Object.entries(p.resources || {}).map(([k, url]) => {
+            const label = { paper: '↗ paper', code: '↗ code', video: '↗ video', site: '↗ site', demo: '↗ demo' }[k] || `↗ ${k}`;
+            return `<a class="tlm-res" href="${url}" target="_blank" rel="noopener">${label}</a>`;
         }).join('');
 
-        const tags = (paper.tags || []).map(tag =>
-            `<span class="bg-dark-bg px-2 py-1 rounded text-xs text-robot-blue">${tag}</span>`
-        ).join('');
-
         return `
-        <div class="publication-card ${paper.type} bg-dark-card rounded-xl overflow-hidden border border-gray-800 hover:border-robot-blue/50 transition-all group">
-            <div class="h-48 bg-gradient-to-br ${bgGradient[paper.type] || 'from-gray-700 to-gray-900'} relative overflow-hidden">
-                <img src="${paper.image}" alt="${paper.title}" class="w-full h-full object-cover opacity-80">
-                <div class="absolute bottom-4 right-4">
-                    <span class="bg-${tagColors[paper.type] || 'gray-500'}/20 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-medium capitalize">${paper.type}</span>
-                </div>
-            </div>
-            <div class="p-6">
-                <h3 class="text-xl font-semibold mb-3 group-hover:text-robot-blue transition-colors">${paper.title}</h3>
-                <p class="text-gray-400 text-sm mb-4">${paper.venue}</p>
-                <p class="text-gray-300 mb-4 line-clamp-3">${paper.description}</p>
-                <div class="flex flex-wrap gap-2 mb-4">${tags}</div>
-                <div class="flex space-x-3">${resources}</div>
-            </div>
-        </div>
-        `;
+        <div class="tlm-row ${open ? 'is-open' : ''}" data-idx="${p.idx}" role="row">
+          <div class="tlm-row-line">
+            <span class="col-idx">${p.idx}</span>
+            <span class="col-yr">${p.year}</span>
+            <span class="col-title">${p.title}</span>
+            <span class="col-venue">${p.venueShort}</span>
+            <span class="col-type">${p.type.toUpperCase()}</span>
+            <span class="col-act">${open ? '−' : '+'}</span>
+          </div>
+          ${open ? `
+            <div class="tlm-row-body">
+              <div class="tlm-row-meta">
+                <span class="k">venue</span><span class="v">${p.venue}</span>
+              </div>
+              <p class="tlm-row-desc">${p.description || ''}</p>
+              ${tags ? `<div class="tlm-row-tags">${tags}</div>` : ''}
+              ${resources ? `<div class="tlm-row-res">${resources}</div>` : ''}
+              ${p.image ? `<img class="tlm-row-img" src="${p.image}" alt="${p.title}">` : ''}
+            </div>` : ''}
+        </div>`;
     }
 }
 

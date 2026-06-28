@@ -5,13 +5,8 @@ function initPageScripts() {
     
     if (mobileMenuBtn && mobileMenu) {
         mobileMenuBtn.addEventListener('click', function() {
-            mobileMenu.classList.toggle('hidden');
-            const icon = mobileMenuBtn.querySelector('i');
-            if (mobileMenu.classList.contains('hidden')) {
-                icon.className = 'fas fa-bars';
-            } else {
-                icon.className = 'fas fa-times';
-            }
+            const open = mobileMenu.classList.toggle('is-open');
+            mobileMenuBtn.textContent = open ? 'CLOSE' : 'MENU';
         });
     }
 
@@ -31,12 +26,9 @@ function initPageScripts() {
                 });
                 
                 // Close mobile menu if open
-                if (mobileMenu) {
-                    mobileMenu.classList.add('hidden');
-                    const menuIcon = mobileMenuBtn?.querySelector('i');
-                    if (menuIcon) {
-                        menuIcon.className = 'fas fa-bars';
-                    }
+                if (mobileMenu && mobileMenu.classList.contains('is-open')) {
+                    mobileMenu.classList.remove('is-open');
+                    if (mobileMenuBtn) mobileMenuBtn.textContent = 'MENU';
                 }
             }
         });
@@ -78,35 +70,12 @@ function initPageScripts() {
         });
     });
 
-    // Navbar scroll effect
-    let lastScrollTop = 0;
-    const navbar = document.querySelector('nav');
-    
+    // Navbar scroll state — keep nav visible always, just toggle 'scrolled'
+    const navbar = document.querySelector('nav.tlm-nav') || document.querySelector('nav');
     window.addEventListener('scroll', function() {
+        if (!navbar) return;
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        
-        if (scrollTop > lastScrollTop && scrollTop > 100) {
-            // Scrolling down - hide navbar
-            if (navbar) {
-                navbar.style.transform = 'translateY(-100%)';
-            }
-        } else {
-            // Scrolling up - show navbar
-            if (navbar) {
-                navbar.style.transform = 'translateY(0)';
-            }
-        }
-        
-        lastScrollTop = scrollTop;
-        
-        // Add background blur when scrolled
-        if (navbar) {
-            if (scrollTop > 50) {
-                navbar.classList.add('navbar-scrolled');
-            } else {
-                navbar.classList.remove('navbar-scrolled');
-            }
-        }
+        navbar.classList.toggle('scrolled', scrollTop > 24);
     });
 
     // Intersection Observer for section highlighting in navbar
@@ -117,20 +86,10 @@ function initPageScripts() {
 
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            const navLink = document.querySelector(`a[href="#${entry.target.id}"]`);
-            if (entry.isIntersecting) {
-                // Remove active class from all nav links
-                document.querySelectorAll('.nav-link').forEach(link => {
-                    link.classList.remove('text-robot-blue', 'nav-active');
-                    link.classList.add('text-gray-300');
-                });
-                
-                // Add active class to current section link
-                if (navLink) {
-                    navLink.classList.add('text-robot-blue', 'nav-active');
-                    navLink.classList.remove('text-gray-300');
-                }
-            }
+            if (!entry.isIntersecting) return;
+            document.querySelectorAll('.tlm-nav-links a').forEach(link => {
+                link.classList.toggle('is-active', link.dataset.section === entry.target.id);
+            });
         });
     }, observerOptions);
 
@@ -170,56 +129,7 @@ function initPageScripts() {
         counterObserver.observe(counter);
     });
 
-    // Parallax effect for hero section
-    let ticking = false;
-    
-    function updateParallax() {
-        const scrolled = window.pageYOffset;
-        const hero = document.querySelector('#home');
-        if (hero) {
-            const rate = scrolled * -0.3;
-            hero.style.transform = `translateY(${rate}px)`;
-        }
-        ticking = false;
-    }
-
-    window.addEventListener('scroll', function() {
-        if (!ticking) {
-            requestAnimationFrame(updateParallax);
-            ticking = true;
-        }
-    });
-
-    // Enhanced card hover effects
-    const cards = document.querySelectorAll('.publication-card, .project-card, .bg-dark-card');
-    cards.forEach(card => {
-        card.addEventListener('mouseenter', function() {
-            this.classList.add('card-hover');
-        });
-        
-        card.addEventListener('mouseleave', function() {
-            this.classList.remove('card-hover');
-        });
-        
-        // Add mouse move effect for 3D tilt
-        card.addEventListener('mousemove', function(e) {
-            const rect = this.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            
-            const rotateX = (y - centerY) / 10;
-            const rotateY = (centerX - x) / 10;
-            
-            this.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(10px)`;
-        });
-        
-        card.addEventListener('mouseleave', function() {
-            this.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateZ(0)';
-        });
-    });
+    // (Telemetry: parallax on hero and 3D card-tilt removed — they fight the hairline aesthetic.)
 
     // Typewriter effect for hero text
     function typeWriter(element, text, speed = 100) {
@@ -420,7 +330,7 @@ function initPageScripts() {
 
     // Back to top button
     const backToTopBtn = document.createElement('button');
-    backToTopBtn.innerHTML = '<i class="fas fa-arrow-up"></i>';
+    backToTopBtn.textContent = '^';
     backToTopBtn.className = 'back-to-top';
     backToTopBtn.setAttribute('aria-label', 'Back to top');
     document.body.appendChild(backToTopBtn);
