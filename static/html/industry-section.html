@@ -1,64 +1,24 @@
-<section id="work" class="py-20 px-6 bg-dark-card/30">
-  <div class="container mx-auto max-w-6xl">
-    <h2 class="text-4xl font-bold text-center mb-16 bg-gradient-to-r from-robot-blue to-robot-purple bg-clip-text text-transparent">
-      Industry Work
-    </h2>
+<section id="work">
+  <div class="section-wrap">
 
-    <div class="grid md:grid-cols-2 gap-8">
-      <% _.forEach(industryProjects, function(project) { %>
-        <div class="bg-dark-card rounded-xl p-8 border border-gray-800 hover:border-robot-blue/50 transition-all">
-          <div class="flex items-start space-x-4">
-            <div class="flex flex-col items-center space-y-3">
-              <!-- Company Logo -->
-              <% if (project.companyLogo) { %>
-                <div class="w-12 h-12 bg-white rounded-lg flex items-center justify-center p-2">
-                  <img src="<%= project.companyLogo %>" alt="<%= project.company || 'Company' %> logo" class="max-w-full max-h-full object-contain" />
-                </div>
-              <% } %>
-              <!-- Project Icon -->
-              <div class="<%= project.iconBackground %> p-3 rounded-xl">
-                <i class="<%= project.icon %> text-2xl text-white"></i>
-              </div>
-            </div>
-            <div class="flex-1">
-              <div class="flex items-center gap-2 mb-3">
-                <h3 class="text-2xl font-semibold"><%= project.title %></h3>
-                <% if (project.company) { %>
-                  <span class="text-sm text-gray-400 bg-gray-800 px-2 py-1 rounded">@ <%= project.company %></span>
-                <% } %>
-              </div>
-              <p class="text-gray-300 mb-4"><%= project.description %></p>
-
-              <div class="grid grid-cols-2 gap-4 mb-6">
-                <div>
-                  <h4 class="font-semibold text-robot-blue mb-2"><%= project.leftColumn.title %></h4>
-                  <div class="flex flex-wrap gap-2">
-                    <% _.forEach(project.leftColumn.items, function(tag) { %>
-                      <span class="bg-dark-bg px-2 py-1 rounded text-xs"><%= tag %></span>
-                    <% }); %>
-                  </div>
-                </div>
-                <div>
-                  <h4 class="font-semibold text-robot-blue mb-2"><%= project.rightColumn.title %></h4>
-                  <ul class="text-sm text-gray-300 space-y-1">
-                    <% _.forEach(project.rightColumn.items, function(point) { %>
-                      <li>• <%= point %></li>
-                    <% }); %>
-                  </ul>
-                </div>
-              </div>
-
-              <div class="flex space-x-3">
-                <% _.forEach(project.buttons, function(btn) { %>
-                  <a href="<%= btn.url || '#' %>" class="text-robot-blue hover:text-robot-purple transition-colors">
-                    <i class="<%= btn.icon %>"></i> <%= btn.label %>
-                  </a>
-                <% }); %>
-              </div>
-            </div>
-          </div>
-        </div>
-      <% }); %>
+    <div class="section-header">
+      <div>
+        <span class="index">§ 05 / 07</span>
+        &nbsp;&mdash;&nbsp;
+        <span class="title">INDUSTRY</span>
+      </div>
+      <div>N=<span id="industry-count">--</span> · ENGAGEMENTS</div>
     </div>
+
+    <div class="tlm-table is-industry" role="table" aria-label="industry work">
+      <div class="tlm-table-head" role="row">
+        <span class="col-idx">idx</span>
+        <span class="col-company">company</span>
+        <span class="col-title">title</span>
+        <span class="col-act">↗</span>
+      </div>
+      <div id="industry-rows"></div>
+    </div>
+
   </div>
 </section>

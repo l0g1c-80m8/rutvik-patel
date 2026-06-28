@@ -10,26 +10,27 @@ function initPageScripts() {
         });
     }
 
-    // Smooth scrolling for navigation links
+    // Smooth scrolling for navigation links.
+    // Use getBoundingClientRect() + scrollY rather than offsetTop, because
+    // every section is inside a position:relative custom element (e.g.
+    // <research-section>), which makes offsetTop measure ~0 against the
+    // host element instead of the document.
     const navLinks = document.querySelectorAll('a[href^="#"]');
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
-            e.preventDefault();
             const targetId = this.getAttribute('href');
+            if (!targetId || targetId === '#') return;
+
             const targetElement = document.querySelector(targetId);
-            
-            if (targetElement) {
-                const offsetTop = targetElement.offsetTop - 80; // Account for fixed navbar
-                window.scrollTo({
-                    top: offsetTop,
-                    behavior: 'smooth'
-                });
-                
-                // Close mobile menu if open
-                if (mobileMenu && mobileMenu.classList.contains('is-open')) {
-                    mobileMenu.classList.remove('is-open');
-                    if (mobileMenuBtn) mobileMenuBtn.textContent = 'MENU';
-                }
+            if (!targetElement) return;
+
+            e.preventDefault();
+            const top = targetElement.getBoundingClientRect().top + window.scrollY - 80;
+            window.scrollTo({ top, behavior: 'smooth' });
+
+            if (mobileMenu && mobileMenu.classList.contains('is-open')) {
+                mobileMenu.classList.remove('is-open');
+                if (mobileMenuBtn) mobileMenuBtn.textContent = 'MENU';
             }
         });
     });

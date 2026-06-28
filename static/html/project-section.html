@@ -1,52 +1,25 @@
-<section id="projects" class="py-20 px-6">
-    <div class="container mx-auto max-w-6xl">
-        <h2 class="text-4xl font-bold text-center mb-16 bg-gradient-to-r from-robot-blue to-robot-purple bg-clip-text text-transparent">
-            Personal Projects
-        </h2>
+<section id="projects">
+  <div class="section-wrap">
 
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <% _.forEach(projects, function(project) { %>
-                <div class="bg-dark-card rounded-xl overflow-hidden border border-gray-800 hover:border-robot-blue/50 transition-all group">
-                    <div class="h-64 bg-gradient-to-br from-orange-500/20 to-red-500/20 relative overflow-hidden">
-                        <img src="<%= project.image %>" alt="<%= project.title %>" class="w-full h-full object-cover opacity-80">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-                        <div class="absolute bottom-4 left-4">
-                            <span class="bg-orange-500/20 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-medium"><%= project.caption %></span>
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold mb-3 group-hover:text-robot-blue transition-colors">
-                            <%= project.title %>
-                        </h3>
-                        <p class="text-gray-300 mb-4"><%= project.detail %></p>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <% _.forEach(project.topic, function(tag) { %>
-                                <span class="bg-dark-bg px-2 py-1 rounded text-xs text-robot-blue"><%= tag %></span>
-                            <% }); %>
-                        </div>
-                        <div class="flex space-x-3">
-                            <% if (project.resources.code && Array.isArray(project.resources.code)) { %>
-                                <% _.forEach(project.resources.code, function(repo) { %>
-                                    <a href="<%= repo.url %>" class="text-robot-blue hover:text-robot-purple transition-colors inline-flex items-center space-x-2">
-                                        <i class="fab fa-github"></i>
-                                        <span><%= repo.label %></span>
-                                    </a>
-                                <% }); %>
-                            <% } %>
-                            <% if (project.resources.video) { %>
-                                <a href="<%= project.resources.video %>" class="text-robot-blue hover:text-robot-purple transition-colors">
-                                    <i class="fas fa-video"></i> Video
-                                </a>
-                            <% } %>
-                            <% if (project.resources.gallery) { %>
-                                <a href="<%= project.resources.gallery %>" class="text-robot-blue hover:text-robot-purple transition-colors">
-                                    <i class="fas fa-images"></i> Gallery
-                                </a>
-                            <% } %>
-                        </div>
-                    </div>
-                </div>
-            <% }); %>
-        </div>
+    <div class="section-header">
+      <div>
+        <span class="index">§ 04 / 07</span>
+        &nbsp;&mdash;&nbsp;
+        <span class="title">PERSONAL PROJECTS</span>
+      </div>
+      <div>N=<span id="projects-count">--</span> · BUILDS</div>
     </div>
+
+    <div class="tlm-table is-projects" role="table" aria-label="personal projects">
+      <div class="tlm-table-head" role="row">
+        <span class="col-idx">idx</span>
+        <span class="col-domain">domain</span>
+        <span class="col-title">title</span>
+        <span class="col-stack">stack</span>
+        <span class="col-act">↗</span>
+      </div>
+      <div id="projects-rows"></div>
+    </div>
+
+  </div>
 </section>
