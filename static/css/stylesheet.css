@@ -73,6 +73,10 @@ portfolio-footer {
   display: block;
 }
 
+/* nav must outrank content stacking contexts — otherwise the fixed <nav>
+   inside is painted under later sections and click intercepts the wrong layer */
+portfolio-navigation { z-index: 60; }
+
 ::selection {
   background: var(--signal);
   color: var(--bg);
