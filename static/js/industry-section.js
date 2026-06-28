@@ -31,7 +31,10 @@ class IndustrySection extends HTMLElement {
     shortenCompany(name) {
         if (!name) return '';
         // "GrayMatter Robotics" → "graymatter"; otherwise lowercase first word.
-        const map = { 'graymatter robotics': 'gmr' };
+        const map = {
+            'graymatter robotics': 'gmr',
+            'nimble robotics':     'nimble'
+        };
         const k = name.toLowerCase();
         return map[k] || name.toLowerCase();
     }

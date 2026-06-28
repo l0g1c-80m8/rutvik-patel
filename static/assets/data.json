@@ -192,6 +192,42 @@
     ],
     "industry-section": [
         {
+            "title": "Hierarchical Task Planning for Multi-Robot Fleets",
+            "company": "Nimble Robotics",
+            "description": "Architected a highly concurrent Hierarchical Task Planning policy in Rust to orchestrate real-time coordination across 100+ autonomous robots in distributed warehouse fleets. Drove improvements in operational unit economics by optimizing task allocation and maximizing system throughput, while guaranteeing reliable task completion.",
+            "leftColumn": {
+                "title": "Stack",
+                "items": ["Rust", "Concurrent Systems", "Hierarchical Task Planning", "Multi-Agent Coordination"]
+            },
+            "rightColumn": {
+                "title": "Impact",
+                "items": [
+                    "Coordinated 100+ autonomous robots in real time",
+                    "Improved warehouse fleet unit economics",
+                    "Maximized task throughput with reliability guarantees"
+                ]
+            },
+            "buttons": []
+        },
+        {
+            "title": "Per-Robot Behavior Optimization",
+            "company": "Nimble Robotics",
+            "description": "Optimized individual robot behavior to drive efficiency improvements across warehouse operations. Targeted tuning of motion, decision-making, and recovery strategies to reduce takt time, improve reliability, and increase per-robot uptime - translating per-unit gains into compounding fleet-wide throughput.",
+            "leftColumn": {
+                "title": "Focus Areas",
+                "items": ["Motion Optimization", "Cycle-Time Reduction", "Reliability Engineering", "Recovery Strategies"]
+            },
+            "rightColumn": {
+                "title": "Impact",
+                "items": [
+                    "Reduced per-task takt time",
+                    "Improved task success reliability",
+                    "Increased per-robot uptime across the fleet"
+                ]
+            },
+            "buttons": []
+        },
+        {
             "title": "Robotic Cell Calibration",
             "company": "GrayMatter Robotics",
             "description": "Designed and implemented a high-precision calibration pipeline for an industrial robotic cell involving multiple manipulators and external sensors. The system integrated Leica laser scanners and Fanuc robots to achieve accurate spatial alignment across tools, workpieces, and vision systems, enabling coordinated multi-robot operations.",
