@@ -565,7 +565,7 @@ nav.tlm-nav.scrolled {
   padding-top: 24px;
   border-top: 1px solid var(--rule);
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 16px;
   font-family: var(--mono);
   font-size: 0.75rem;
@@ -574,7 +574,10 @@ nav.tlm-nav.scrolled {
 .tlm-hero-meta .k { color: var(--ink-mute); display: block; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.6875rem; }
 .tlm-hero-meta .v { color: var(--ink); }
 
-@media (max-width: 720px) {
+@media (max-width: 1024px) {
+  .tlm-hero-meta { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 640px) {
   .tlm-hero-meta { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
@@ -600,6 +603,24 @@ footer.tlm-footer {
 }
 
 .tlm-footer .sig { color: var(--signal); }
+
+/* sneaky Rocinante sticker — small, dim by default, lifts on hover */
+.tlm-footer-sticker {
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  vertical-align: middle;
+  margin-left: 10px;
+  opacity: 0.35;
+  filter: grayscale(0.4);
+  transition: opacity 200ms ease, filter 200ms ease, transform 200ms ease;
+}
+.tlm-footer-sticker:hover {
+  opacity: 1;
+  filter: none;
+  transform: scale(1.15);
+  cursor: help;
+}
 
 /* -------------------------------------------------------------------------
    Telemetry table (research, and reusable for projects/industry)
