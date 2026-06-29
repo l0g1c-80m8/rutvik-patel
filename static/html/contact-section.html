@@ -1,66 +1,53 @@
-<section id="contact" class="py-20 px-6 bg-dark-card/30">
-  <div class="container mx-auto max-w-4xl text-center">
-    <h2 class="text-4xl font-bold mb-8 bg-gradient-to-r from-robot-blue to-robot-purple bg-clip-text text-transparent" id="contact-title">${title}</h2>
-    <p class="text-xl text-gray-300 mb-12" id="contact-subtitle">${subtitle}</p>
-    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12" id="contact-links"></div>
-    <div class="bg-dark-card rounded-xl p-8 border border-gray-800 max-w-2xl mx-auto">
-      <h3 class="text-2xl font-semibold mb-6">Send Me a Message</h3>
-      <form id="contact-form" class="space-y-6" novalidate>
-        <div class="grid md:grid-cols-2 gap-6">
-          <div class="mb-6">
-            <label for="name" class="block text-sm font-medium text-gray-300 mb-2">Name</label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              placeholder="Your full name"
-              required
-              class="w-full bg-dark-bg border border-gray-700 rounded-lg px-4 py-3 text-white focus:border-robot-blue focus:outline-none transition-colors"
-            />
-          </div>
-          <div class="mb-6">
-            <label for="email" class="block text-sm font-medium text-gray-300 mb-2">Email</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              placeholder="you@example.com"
-              required
-              class="w-full bg-dark-bg border border-gray-700 rounded-lg px-4 py-3 text-white focus:border-robot-blue focus:outline-none transition-colors"
-            />
-          </div>
+<section id="contact">
+  <div class="section-wrap">
+
+    <div class="section-header">
+      <div>
+        <span class="index">§ 07 / 07</span>
+        &nbsp;&mdash;&nbsp;
+        <span class="title">CONTACT</span>
+      </div>
+      <div>INBOX · OPEN</div>
+    </div>
+
+    <!-- Channels list — pulled from data.contacts -->
+    <div class="tlm-contact-channels" id="contact-links"></div>
+
+    <!-- Terminal-style message form -->
+    <div class="tlm-form-wrap">
+      <div class="tlm-form-prompt">
+        <span class="path">~/rutvik-patel</span>
+        <span>$</span>
+        <span class="cmd">contact --new</span>
+      </div>
+
+      <form id="contact-form" class="tlm-form" novalidate>
+        <div class="tlm-form-field">
+          <label for="name">&gt; name</label>
+          <input type="text" id="name" name="name" required autocomplete="name" />
         </div>
-        <div class="mb-6">
-          <label for="subject" class="block text-sm font-medium text-gray-300 mb-2">Subject</label>
-          <input
-            type="text"
-            id="subject"
-            name="subject"
-            placeholder="Subject of your message"
-            required
-            class="w-full bg-dark-bg border border-gray-700 rounded-lg px-4 py-3 text-white focus:border-robot-blue focus:outline-none transition-colors"
-          />
+
+        <div class="tlm-form-field">
+          <label for="email">&gt; email</label>
+          <input type="email" id="email" name="email" required autocomplete="email" inputmode="email" />
         </div>
-        <div class="mb-6">
-          <label for="message" class="block text-sm font-medium text-gray-300 mb-2">Message</label>
-          <textarea
-            id="message"
-            name="message"
-            rows="5"
-            placeholder="Write your message here"
-            required
-            class="w-full bg-dark-bg border border-gray-700 rounded-lg px-4 py-3 text-white focus:border-robot-blue focus:outline-none transition-colors resize-none"
-          ></textarea>
+
+        <div class="tlm-form-field">
+          <label for="subject">&gt; subject</label>
+          <input type="text" id="subject" name="subject" required autocomplete="off" />
         </div>
-        <button
-          type="submit"
-          id="form-submit-btn"
-          class="w-full bg-gradient-to-r from-robot-blue to-robot-purple px-8 py-3 rounded-lg font-semibold hover:scale-105 transition-transform"
-        >
-          Send Message
-        </button>
-        <p id="form-success-msg" class="text-green-400 mt-4 hidden"></p>
+
+        <div class="tlm-form-field">
+          <label for="message">&gt; message</label>
+          <textarea id="message" name="message" rows="6" required></textarea>
+        </div>
+
+        <div class="tlm-form-actions">
+          <button type="submit" id="form-submit-btn" class="tlm-form-submit">↗ send</button>
+          <p id="form-success-msg" class="tlm-form-status hidden"></p>
+        </div>
       </form>
     </div>
+
   </div>
 </section>

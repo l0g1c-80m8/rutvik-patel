@@ -985,6 +985,148 @@ footer.tlm-footer {
 }
 
 /* -------------------------------------------------------------------------
+   Contact section — terminal-flavored channel list + shell-style form
+   ------------------------------------------------------------------------- */
+
+.tlm-contact-channels {
+  display: grid;
+  gap: 0;
+  margin-bottom: 56px;
+  border-top: 1px solid var(--rule);
+}
+
+.tlm-contact-channel {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--rule);
+  font-family: var(--mono);
+  font-size: 0.9375rem;
+  text-decoration: none;
+  transition: background 120ms ease;
+}
+.tlm-contact-channel:hover { background: rgba(34, 214, 123, 0.04); }
+.tlm-contact-channel .k {
+  color: var(--ink-mute);
+  text-transform: lowercase;
+  letter-spacing: 0.06em;
+  font-size: 0.75rem;
+  padding-top: 2px;
+}
+.tlm-contact-channel .v { color: var(--ink); }
+.tlm-contact-channel .v::before {
+  content: "↗ ";
+  color: var(--signal);
+}
+.tlm-contact-channel:hover .v { color: var(--signal-bright); }
+
+@media (max-width: 600px) {
+  .tlm-contact-channel { grid-template-columns: 1fr; gap: 2px; padding: 10px 0; }
+}
+
+.tlm-form-wrap {
+  border-top: 1px solid var(--rule);
+  padding-top: 32px;
+}
+
+.tlm-form-prompt {
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  color: var(--ink-mute);
+  margin-bottom: 24px;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.tlm-form-prompt .path { color: var(--signal); }
+.tlm-form-prompt .cmd  { color: var(--ink); }
+
+.tlm-form {
+  display: grid;
+  gap: 18px;
+  max-width: 720px;
+}
+
+.tlm-form-field { display: grid; gap: 6px; }
+
+.tlm-form-field label {
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  color: var(--ink-mute);
+  letter-spacing: 0.04em;
+}
+
+.tlm-form-field input,
+.tlm-form-field textarea {
+  font-family: var(--mono);
+  font-size: 1rem;          /* 16px+ to prevent iOS auto-zoom on focus */
+  color: var(--ink);
+  background: transparent;
+  border: 1px solid var(--rule);
+  border-radius: 0;
+  padding: 10px 12px;
+  width: 100%;
+  outline: none;
+  caret-color: var(--signal);
+  transition: border-color 160ms ease, background 160ms ease;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.tlm-form-field input:focus,
+.tlm-form-field textarea:focus {
+  border-color: var(--signal);
+  background: rgba(34, 214, 123, 0.04);
+}
+.tlm-form-field input::placeholder,
+.tlm-form-field textarea::placeholder {
+  color: var(--ink-dim);
+}
+.tlm-form-field textarea {
+  resize: vertical;
+  min-height: 120px;
+  line-height: 1.5;
+}
+
+.tlm-form-actions {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+.tlm-form-submit {
+  background: transparent;
+  border: 1px solid var(--signal);
+  color: var(--signal);
+  font-family: var(--mono);
+  font-size: 0.875rem;
+  text-transform: lowercase;
+  letter-spacing: 0.04em;
+  padding: 10px 18px;
+  cursor: pointer;
+  transition: background 160ms ease, color 160ms ease, opacity 160ms ease;
+  min-height: 44px;          /* touch target */
+}
+.tlm-form-submit:hover:not(:disabled) {
+  background: var(--signal);
+  color: var(--bg);
+}
+.tlm-form-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.tlm-form-status {
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  margin: 0;
+  color: var(--ink-mute);
+}
+.tlm-form-status.is-success { color: var(--signal-bright); }
+.tlm-form-status.is-error   { color: #ff6b6b; }
+.tlm-form-status.hidden     { display: none; }
+
+/* -------------------------------------------------------------------------
    Re-skin of legacy Tailwind-styled sections (about / personal / contact)
    ------------------------------------------------------------------------- */
 

@@ -1,64 +1,41 @@
 class ContactSection extends HTMLElement {
   async connectedCallback() {
     const html = await window.templateLoader.loadTemplate('static/html/contact-section.html');
-    if (html) {
-      try {
-        const response = await fetch('static/assets/data.json');
-        const rawData = await response.json();
-        const data = _.get(rawData, ['contact-section'], {});
-        
-        // Replace template variables in HTML
-        let processedHtml = html
-          .replace('${title}', data.title || '')
-          .replace('${subtitle}', data.subtitle || '');
-        
-        // Replace form field values
-        const form = data.form || {};
-        const fields = form.fields || {};
-        
-        processedHtml = processedHtml
-          .replace('Send Me a Message', form.heading || 'Send Me a Message')
-          .replace('Your full name', fields.name?.placeholder || 'Your full name')
-          .replace('you@example.com', fields.email?.placeholder || 'you@example.com')
-          .replace('Subject of your message', fields.subject?.placeholder || 'Subject of your message')
-          .replace('Write your message here', fields.message?.placeholder || 'Write your message here')
-          .replace('Send Message', form.submitText || 'Send Message');
-        
-        this.innerHTML = processedHtml;
-        
-        // Populate contact links
-        this.populateContactLinks(data.contacts || []);
-        
-        // Initialize form handling after DOM is populated
-        this.initializeForm(data);
-        
-      } catch (error) {
-        console.error('Error loading or processing contact data:', error);
-        let processedHtml = html
-          .replace('${title}', 'Let\'s Connect')
-          .replace('${subtitle}', 'Get in touch with me!');
-        
-        this.innerHTML = processedHtml;
-        this.populateContactLinks([]);
-        this.initializeForm({});
-        
-      } finally {
-        window.dynamicComponentTracker.markLoaded();
-      }
+    if (!html) {
+      window.dynamicComponentTracker.markLoaded();
+      return;
+    }
+    try {
+      const response = await fetch('static/assets/data.json');
+      const rawData = await response.json();
+      const data = _.get(rawData, ['contact-section'], {});
+
+      this.innerHTML = html;
+      this.populateContactLinks(data.contacts || []);
+      this.initializeForm(data);
+    } catch (error) {
+      console.error('Error loading contact data:', error);
+      this.innerHTML = html;
+      this.populateContactLinks([]);
+      this.initializeForm({});
+    } finally {
+      window.dynamicComponentTracker.markLoaded();
     }
   }
-  
+
   populateContactLinks(contacts) {
     const linksContainer = this.querySelector('#contact-links');
     if (!linksContainer) return;
-    
-    linksContainer.innerHTML = contacts.map(contact => `
-      <a href="${contact.link}" target="_blank" rel="noopener noreferrer" class="bg-dark-card p-6 rounded-xl border border-gray-800 hover:border-robot-blue/50 transition-all group">
-        <i class="${contact.icon} text-3xl text-robot-blue mb-4 group-hover:scale-110 transition-transform"></i>
-        <h3 class="font-semibold mb-2">${contact.label}</h3>
-        <p class="text-gray-400 text-sm">${contact.text}</p>
-      </a>
-    `).join('');
+
+    linksContainer.innerHTML = contacts.map(c => {
+      const isMail = (c.link || '').startsWith('mailto:');
+      return `
+        <a class="tlm-contact-channel" href="${c.link}"${isMail ? '' : ' target="_blank" rel="noopener noreferrer"'}>
+          <span class="k">${(c.label || '').toLowerCase()}</span>
+          <span class="v">${c.text}</span>
+        </a>
+      `;
+    }).join('');
   }
 
   initializeForm(/* data */) {
@@ -75,9 +52,9 @@ class ContactSection extends HTMLElement {
     const originalBtnText = submitBtn.textContent;
 
     const setStatus = (text, ok = true) => {
-      successMsg.textContent = text;
-      successMsg.classList.remove('hidden', 'text-green-400', 'text-red-400');
-      successMsg.classList.add(ok ? 'text-green-400' : 'text-red-400');
+      successMsg.textContent = `>>> ${text}`;
+      successMsg.classList.remove('hidden', 'is-success', 'is-error');
+      successMsg.classList.add(ok ? 'is-success' : 'is-error');
     };
 
     form.addEventListener('submit', async (e) => {
@@ -95,7 +72,7 @@ class ContactSection extends HTMLElement {
       fd.set('_subject', subject || `Portfolio contact from ${name || 'visitor'}`);
 
       submitBtn.disabled = true;
-      submitBtn.textContent = 'Sending…';
+      submitBtn.textContent = '> sending…';
       successMsg.classList.add('hidden');
 
       try {
@@ -107,16 +84,16 @@ class ContactSection extends HTMLElement {
 
         if (res.ok) {
           form.reset();
-          setStatus("Message sent, I'll get back to you soon 🍉", true);
+          setStatus("message sent · 200 ok — i'll get back to you soon", true);
         } else {
           const data = await res.json().catch(() => ({}));
           const msg = (data.errors && data.errors.map(x => x.message).join(', ')) ||
-                      'Could not send. Please email me directly.';
+                      'send failed · please email me directly';
           setStatus(msg, false);
         }
       } catch (err) {
         console.error('Contact form error:', err);
-        setStatus('Network error. Please email me directly.', false);
+        setStatus('network error · please email me directly', false);
       } finally {
         submitBtn.disabled = false;
         submitBtn.textContent = originalBtnText;
