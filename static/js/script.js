@@ -78,11 +78,12 @@ function initPageScripts() {
     }
 }
 
-// Ambient audio without a dedicated button:
-//   • Desktop  → terminal prompt invites "press [space] for ambient"
-//   • Mobile   → first tap anywhere arms audio (no prompt, since no keyboard)
-//   • Once playing, a floating mute chip is the only on-screen control.
-// All audio still originates from a user gesture (browser autoplay policy).
+// Ambient audio:
+//   • Desktop → terminal prompt invites "press [space] for ambient",
+//     visible whenever audio is off. Space toggles freely — enter and exit.
+//   • Mobile  → first tap anywhere arms audio (no prompt, no keyboard);
+//     after that, the floating chip is the only on-screen control.
+//   • All audio originates from a user gesture (browser autoplay policy).
 function initAmbientAudio() {
     const audio  = document.getElementById('ambient-audio');
     const prompt = document.getElementById('audio-prompt');
@@ -92,108 +93,112 @@ function initAmbientAudio() {
     const TARGET_VOLUME = 0.3;
     const FADE_IN_MS    = 3500;
     const FADE_OUT_MS   = 700;
-    const PROMPT_DELAY  = 2500;
-    const PROMPT_TIMEOUT = 18000;
     let armed = false;
-    let promptDismissed = false;
+    let activeFade = null;
+    let promptTimer = null;
+    let chipTimer = null;
 
     audio.volume = 0;
 
-    const fadeVolume = (from, to, duration) => new Promise(resolve => {
-        const start = performance.now();
-        const tick = (now) => {
-            const t = Math.min((now - start) / duration, 1);
-            audio.volume = from + (to - from) * t;
-            if (t < 1) requestAnimationFrame(tick);
-            else resolve();
-        };
-        requestAnimationFrame(tick);
-    });
+    // Cancellable volume fade — rapid toggles never end up with competing fades.
+    const fadeVolume = (from, to, duration) => {
+        if (activeFade) cancelAnimationFrame(activeFade);
+        return new Promise(resolve => {
+            const start = performance.now();
+            const tick = (now) => {
+                const t = Math.min((now - start) / duration, 1);
+                audio.volume = from + (to - from) * t;
+                if (t < 1) activeFade = requestAnimationFrame(tick);
+                else { activeFade = null; resolve(); }
+            };
+            activeFade = requestAnimationFrame(tick);
+        });
+    };
 
     const showChip = () => {
+        if (!chip) return;
+        if (chipTimer) { clearTimeout(chipTimer); chipTimer = null; }
         chip.hidden = false;
         requestAnimationFrame(() => chip.classList.add('is-visible'));
     };
     const hideChip = () => {
+        if (!chip) return;
+        if (chipTimer) clearTimeout(chipTimer);
         chip.classList.remove('is-visible');
-        setTimeout(() => { chip.hidden = true; }, 400);
+        chipTimer = setTimeout(() => { chip.hidden = true; chipTimer = null; }, 400);
     };
 
-    const dismissPrompt = () => {
-        if (promptDismissed || !prompt || prompt.hidden) return;
-        promptDismissed = true;
-        prompt.classList.add('is-leaving');
-        setTimeout(() => { prompt.hidden = true; }, 400);
+    const showPrompt = () => {
+        if (!prompt) return;
+        if (promptTimer) { clearTimeout(promptTimer); promptTimer = null; }
+        prompt.classList.remove('is-leaving');
+        prompt.hidden = false;
+        requestAnimationFrame(() => prompt.classList.add('is-visible'));
+    };
+
+    const promptVerb = prompt && prompt.querySelector('#audio-prompt-verb');
+    const setPromptVerb = (armed) => {
+        if (!promptVerb) return;
+        promptVerb.textContent = armed ? 'disable' : 'enable';
     };
 
     const start = async () => {
         if (armed) return;
         armed = true;
-        dismissPrompt();
+        setPromptVerb(true);
         try {
             audio.volume = 0;
-            await audio.play();
+            if (audio.paused) await audio.play();
             showChip();
             fadeVolume(0, TARGET_VOLUME, FADE_IN_MS);
         } catch (err) {
             console.warn('Ambient audio play failed:', err);
             armed = false;
+            setPromptVerb(false);
+            hideChip();
         }
     };
 
     const stop = async () => {
         if (!armed) return;
+        armed = false;
+        setPromptVerb(false);
         hideChip();
         await fadeVolume(audio.volume, 0, FADE_OUT_MS);
-        audio.pause();
-        armed = false;
+        if (!armed) audio.pause();   // skip if user re-armed mid-fade
     };
 
-    // Branch on input modality. (pointer: fine) ≈ has mouse → likely keyboard.
+    const toggle = () => (armed ? stop() : start());
+
     const hasKeyboard = window.matchMedia('(pointer: fine)').matches;
 
-    if (hasKeyboard && prompt) {
-        // Fade the prompt in after a beat so it doesn't compete with page load.
-        setTimeout(() => {
-            if (armed) return;
-            prompt.hidden = false;
-            requestAnimationFrame(() => prompt.classList.add('is-visible'));
-        }, PROMPT_DELAY);
+    if (hasKeyboard) {
+        // Prompt stays visible throughout; the verb swaps enable ↔ disable
+        // to reflect what the next space press will do.
+        setPromptVerb(false);
+        showPrompt();
 
         document.addEventListener('keydown', (e) => {
-            if (armed) return;
             if (e.code === 'Space' || e.key === ' ') {
-                // Only intercept space if the user isn't typing in a form.
                 const tag = (e.target && e.target.tagName) || '';
                 if (tag === 'INPUT' || tag === 'TEXTAREA') return;
                 e.preventDefault();
-                start();
+                toggle();
             }
         });
-
-        // Any click also dismisses the prompt (without starting audio), so the
-        // page stays unobtrusive after the visitor has engaged with anything.
-        document.addEventListener('click', () => {
-            if (!armed) dismissPrompt();
-        }, { once: true });
-
-        // Auto-fade after timeout — never leave a stale prompt sitting around.
-        setTimeout(dismissPrompt, PROMPT_TIMEOUT);
     } else {
         // Touch device: first tap anywhere on bare page area arms audio.
         // Skip taps on interactive controls so the user isn't surprised when
         // they meant to click a link or expand a row.
-        const tapHandler = (e) => {
+        document.addEventListener('pointerdown', (e) => {
             if (armed) return;
             if (e.target.closest('button, a, input, textarea, select, label, [role="button"]')) return;
             start();
-        };
-        document.addEventListener('pointerdown', tapHandler, { once: false });
+        });
     }
 
     if (chip) chip.addEventListener('click', stop);
 
-    // Pause when tab is hidden; resume cleanly when it returns.
     document.addEventListener('visibilitychange', () => {
         if (document.hidden && armed && !audio.paused) audio.pause();
         else if (!document.hidden && armed && audio.paused) {
