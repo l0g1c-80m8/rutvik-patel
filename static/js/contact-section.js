@@ -61,39 +61,66 @@ class ContactSection extends HTMLElement {
     `).join('');
   }
 
-  initializeForm(data) {
+  initializeForm(/* data */) {
     const form = this.querySelector('#contact-form');
     const submitBtn = this.querySelector('#form-submit-btn');
     const successMsg = this.querySelector('#form-success-msg');
-    
+
     if (!form || !submitBtn || !successMsg) {
       console.warn('Contact form elements not found');
       return;
     }
-    
-    const formData = data.form || {};
-    // const successMessage = formData.successMessage || 'Thank you for reaching out! I\'ll get back to you soon.';
-    const successMessage = 'This form is not yet active. Please email me directly. I\'ll get back to you soon!';
-    
-    form.addEventListener('submit', (e) => {
+
+    const FORMSPREE_ENDPOINT = 'https://formspree.io/f/mwvdqero';
+    const originalBtnText = submitBtn.textContent;
+
+    const setStatus = (text, ok = true) => {
+      successMsg.textContent = text;
+      successMsg.classList.remove('hidden', 'text-green-400', 'text-red-400');
+      successMsg.classList.add(ok ? 'text-green-400' : 'text-red-400');
+    };
+
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      
+
       if (!form.checkValidity()) {
         form.reportValidity();
         return;
       }
-      
-      // Show success message
-      successMsg.textContent = successMessage;
-      successMsg.classList.remove('hidden');
-      form.reset();
+
+      const fd = new FormData(form);
+      // Formspree honors `_subject` to set the email subject line in your inbox.
+      const subject = (fd.get('subject') || '').toString().trim();
+      const name = (fd.get('name') || '').toString().trim();
+      fd.set('_subject', subject || `Portfolio contact from ${name || 'visitor'}`);
+
       submitBtn.disabled = true;
-      
-      // Re-enable form after 60 seconds
-      setTimeout(() => {
+      submitBtn.textContent = 'Sending…';
+      successMsg.classList.add('hidden');
+
+      try {
+        const res = await fetch(FORMSPREE_ENDPOINT, {
+          method: 'POST',
+          body: fd,
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (res.ok) {
+          form.reset();
+          setStatus("Message sent — I'll get back to you soon.", true);
+        } else {
+          const data = await res.json().catch(() => ({}));
+          const msg = (data.errors && data.errors.map(x => x.message).join(', ')) ||
+                      'Could not send. Please email me directly.';
+          setStatus(msg, false);
+        }
+      } catch (err) {
+        console.error('Contact form error:', err);
+        setStatus('Network error. Please email me directly.', false);
+      } finally {
         submitBtn.disabled = false;
-        successMsg.classList.add('hidden');
-      }, 60000);
+        submitBtn.textContent = originalBtnText;
+      }
     });
   }
 }
