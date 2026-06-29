@@ -408,11 +408,11 @@ nav.tlm-nav.scrolled {
 
 /* floating mute chip — appears bottom-left only while audio plays */
 /* mute chip — fixed bottom-right, stacked above the back-to-top button.
-   Same position at all viewports for predictable placement. */
+   Shares --utility-bottom so both shift together when the footer scrolls in. */
 .tlm-audio-chip {
   position: fixed;
   right: 24px;
-  bottom: 72px;            /* 24 (back-to-top from bottom) + 36 (its height) + 12 gap */
+  bottom: calc(var(--utility-bottom, 24px) + 48px);
   z-index: 65;
   font-family: var(--mono);
   font-size: 0.6875rem;
@@ -429,11 +429,12 @@ nav.tlm-nav.scrolled {
   opacity: 0;
   transform: translateY(6px);
   transition: opacity 280ms ease, transform 280ms ease,
-              color 160ms ease, border-color 160ms ease;
+              color 160ms ease, border-color 160ms ease,
+              bottom 320ms ease;
   pointer-events: none;
 }
 @media (max-width: 640px) {
-  .tlm-audio-chip { right: 16px; bottom: 64px; }
+  .tlm-audio-chip { right: 16px; }
 }
 .tlm-audio-chip:hover { color: var(--ink); border-color: var(--ink-mute); }
 .tlm-audio-chip .label { color: inherit; }
@@ -1169,10 +1170,11 @@ span.bg-dark-card {
   padding: 3px 8px !important;
 }
 
-/* back-to-top button (created in script.js, toggled .show after 300px scroll) */
+/* back-to-top button — bottom-right. Slides up when footer enters the
+   viewport so it clears the Rocinante sticker. */
 .back-to-top {
   position: fixed;
-  bottom: 24px;
+  bottom: var(--utility-bottom, 24px);
   right: 24px;
   z-index: 65;
   width: 36px;
@@ -1191,7 +1193,8 @@ span.bg-dark-card {
   transform: translateY(8px);
   pointer-events: none;
   transition: opacity 220ms ease, transform 220ms ease,
-              color 160ms ease, background 160ms ease, border-color 160ms ease;
+              color 160ms ease, background 160ms ease, border-color 160ms ease,
+              bottom 320ms ease;
 }
 .back-to-top.show {
   opacity: 1;
@@ -1204,7 +1207,13 @@ span.bg-dark-card {
   border-color: var(--signal);
 }
 @media (max-width: 640px) {
-  .back-to-top { bottom: 16px; right: 16px; }
+  .back-to-top { right: 16px; }
+}
+
+/* When the footer is in view, raise both utility buttons together so they
+   clear the footer content (including the Rocinante sticker). */
+body.is-near-footer {
+  --utility-bottom: 110px;
 }
 
 /* scrollbar */

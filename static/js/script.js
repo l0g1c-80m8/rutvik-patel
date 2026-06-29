@@ -54,7 +54,9 @@ function initPageScripts() {
 
     initAmbientAudio();
 
-    // Back-to-top button.
+    // Back-to-top button — bottom-right. Visible after 300px of scroll.
+    // When the footer enters the viewport, both this button and the audio
+    // chip slide up (via a body class) so they clear the footer sticker.
     const backToTopBtn = document.createElement('button');
     backToTopBtn.textContent = '^';
     backToTopBtn.className = 'back-to-top';
@@ -67,6 +69,13 @@ function initPageScripts() {
     backToTopBtn.addEventListener('click', () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+
+    const footer = document.querySelector('footer.tlm-footer, portfolio-footer');
+    if (footer) {
+        new IntersectionObserver(entries => {
+            document.body.classList.toggle('is-near-footer', entries[0].isIntersecting);
+        }, { rootMargin: '0px 0px -40px 0px' }).observe(footer);
+    }
 }
 
 // Ambient audio without a dedicated button:
