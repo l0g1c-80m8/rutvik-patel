@@ -407,32 +407,36 @@ nav.tlm-nav.scrolled {
 }
 
 /* floating mute chip — appears bottom-left only while audio plays */
+/* mute chip — fixed bottom-right, stacked above the back-to-top button.
+   Same position at all viewports for predictable placement. */
 .tlm-audio-chip {
   position: fixed;
-  left: 24px;
-  bottom: 24px;
-  z-index: 70;
+  right: 24px;
+  bottom: 72px;            /* 24 (back-to-top from bottom) + 36 (its height) + 12 gap */
+  z-index: 65;
   font-family: var(--mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.06em;
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: transparent;
+  background: var(--bg-elev);
   border: 1px solid var(--rule);
   color: var(--signal-bright);
-  padding: 6px 12px;
+  padding: 6px 10px;
   cursor: pointer;
   opacity: 0;
   transform: translateY(6px);
-  transition: opacity 380ms ease, transform 380ms ease,
+  transition: opacity 280ms ease, transform 280ms ease,
               color 160ms ease, border-color 160ms ease;
   pointer-events: none;
 }
+@media (max-width: 640px) {
+  .tlm-audio-chip { right: 16px; bottom: 64px; }
+}
 .tlm-audio-chip:hover { color: var(--ink); border-color: var(--ink-mute); }
 .tlm-audio-chip .label { color: inherit; }
-.tlm-audio-chip .hint  { color: var(--ink-mute); font-size: 0.6875rem; }
 .tlm-audio-chip.is-visible {
   opacity: 1;
   transform: translateY(0);
@@ -467,10 +471,6 @@ nav.tlm-nav.scrolled {
   .tlm-audio-prompt .cursor { animation: none; }
 }
 
-@media (max-width: 640px) {
-  .tlm-audio-chip { left: 12px; bottom: 12px; padding: 6px 10px; }
-  .tlm-audio-chip .hint { display: none; }
-}
 
 /* mobile menu button */
 .tlm-nav-burger {
@@ -1027,19 +1027,42 @@ span.bg-dark-card {
   padding: 3px 8px !important;
 }
 
-/* back-to-top button (created in script.js) */
+/* back-to-top button (created in script.js, toggled .show after 300px scroll) */
 .back-to-top {
-  background: var(--bg-elev) !important;
-  border: 1px solid var(--rule) !important;
-  border-radius: 0 !important;
-  color: var(--signal) !important;
-  box-shadow: none !important;
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 65;
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-elev);
+  border: 1px solid var(--rule);
+  border-radius: 0;
+  color: var(--signal);
   font-family: var(--mono);
+  font-size: 1rem;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+  transition: opacity 220ms ease, transform 220ms ease,
+              color 160ms ease, background 160ms ease, border-color 160ms ease;
+}
+.back-to-top.show {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
 }
 .back-to-top:hover {
-  background: var(--signal) !important;
-  color: var(--bg) !important;
-  transform: none !important;
+  background: var(--signal);
+  color: var(--bg);
+  border-color: var(--signal);
+}
+@media (max-width: 640px) {
+  .back-to-top { bottom: 16px; right: 16px; }
 }
 
 /* scrollbar */

@@ -80,13 +80,13 @@
          spent until the visitor consents via the prompt/tap below. -->
     <audio id="ambient-audio" src="static/assets/clubbed%20to%20death.mp3" loop preload="none"></audio>
 
-    <!-- Floating mute affordance — only born once audio is actually playing.
-         Lives at body root so it persists across scrolls (the audio prompt
-         lives inline inside the hero terminal block). -->
-    <button class="tlm-audio-chip" id="audio-chip" hidden aria-label="mute ambient audio">
+
+    <!-- Mute chip — lives at body root so it's not trapped inside any
+         positioned ancestor's stacking context. Stacks above the back-to-top
+         button at bottom-right. Hidden until audio is actually playing. -->
+    <button class="tlm-audio-chip" id="audio-chip" hidden aria-label="mute ambient audio" title="mute ambient audio">
       <span class="eq" aria-hidden="true"><i></i><i></i><i></i></span>
       <span class="label">ambient</span>
-      <span class="hint">· tap to mute</span>
     </button>
 
     <!-- Telemetry background: layered dot-grid (multi-scale + slight rotation) -->
