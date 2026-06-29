@@ -107,7 +107,7 @@ class ContactSection extends HTMLElement {
 
         if (res.ok) {
           form.reset();
-          setStatus("Message sent — I'll get back to you soon.", true);
+          setStatus("Message sent, I'll get back to you soon 🍉", true);
         } else {
           const data = await res.json().catch(() => ({}));
           const msg = (data.errors && data.errors.map(x => x.message).join(', ')) ||
