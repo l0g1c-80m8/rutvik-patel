@@ -1,13 +1,25 @@
 <section id="home" class="tlm-hero">
   <div class="tlm-hero-inner">
 
-    <div class="tlm-hero-prompt">
-      <div class="left">
-        <span class="path">~/rutvik-patel</span>
-        <span>$</span>
-        <span class="cmd">whoami</span>
+    <div class="tlm-hero-prompt-stack">
+      <div class="tlm-hero-prompt">
+        <div class="left">
+          <span class="path">~/rutvik-patel</span>
+          <span>$</span>
+          <span class="cmd">whoami</span>
+        </div>
+        <div>BUILD ${build} · LAST DEPLOY ${deploy}</div>
       </div>
-      <div>BUILD ${build} · LAST DEPLOY ${deploy}</div>
+      <div class="tlm-hero-prompt audio-line" id="audio-prompt" role="status" aria-live="polite" hidden>
+        <div class="left">
+          <span class="path">~/rutvik-patel</span>
+          <span>$</span>
+          <span class="cmd">press</span>
+          <kbd>space</kbd>
+          <span class="cmd">for ambient</span>
+          <span class="cursor">_</span>
+        </div>
+      </div>
     </div>
 
     <div class="tlm-hero-id">
