@@ -986,6 +986,62 @@ footer.tlm-footer {
 }
 
 /* -------------------------------------------------------------------------
+   About section — terminal-style profile / stack / credentials
+   ------------------------------------------------------------------------- */
+
+.tlm-about-prose {
+  margin-bottom: 32px;
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--ink);
+  max-width: 72ch;
+}
+.tlm-about-prose p { margin: 0 0 16px; }
+.tlm-about-prose p:last-child { margin-bottom: 0; }
+
+.tlm-about-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.tlm-about-credentials {
+  border-top: 1px solid var(--rule);
+}
+.tlm-cred-row {
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--rule);
+  align-items: baseline;
+}
+.tlm-cred-label {
+  font-family: var(--mono);
+  color: var(--signal-bright);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.7rem;
+  padding-top: 2px;
+}
+.tlm-cred-value {
+  font-family: var(--sans);
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--ink);
+}
+
+@media (max-width: 600px) {
+  .tlm-cred-row {
+    grid-template-columns: 1fr;
+    gap: 4px;
+    padding: 10px 0;
+  }
+}
+
+/* -------------------------------------------------------------------------
    Beyond Robotics section — `~/logs` (video logs) + `~/interests` grid
    ------------------------------------------------------------------------- */
 
@@ -1261,49 +1317,6 @@ footer.tlm-footer {
 .tlm-form-status.is-success { color: var(--signal-bright); }
 .tlm-form-status.is-error   { color: #ff6b6b; }
 .tlm-form-status.hidden     { display: none; }
-
-/* -------------------------------------------------------------------------
-   Re-skin of legacy Tailwind-styled sections (about / personal / contact)
-   ------------------------------------------------------------------------- */
-
-/* drop gradient text-fill on legacy h2's */
-.bg-clip-text {
-  background: none !important;
-  -webkit-background-clip: initial !important;
-  background-clip: initial !important;
-  -webkit-text-fill-color: var(--ink) !important;
-  color: var(--ink) !important;
-}
-
-/* legacy "card" containers (about, personal, contact) → hairline boxes */
-.bg-dark-card {
-  background: transparent !important;
-  border: 1px solid var(--rule) !important;
-  border-radius: 0 !important;
-  padding: 20px !important;
-  transition: border-color 160ms ease;
-  position: relative;
-  overflow: hidden;
-}
-.bg-dark-card:hover {
-  border-color: var(--signal) !important;
-  transform: none !important;
-  box-shadow: none !important;
-}
-.bg-dark-card::before { display: none !important; }
-
-/* skill chips inside about-section (rendered as spans with bg-dark-card) */
-span.bg-dark-card {
-  background: transparent !important;
-  border: 1px solid var(--rule) !important;
-  border-radius: 0 !important;
-  color: var(--ink-mute) !important;
-  font-family: var(--mono);
-  font-size: 0.6875rem;
-  letter-spacing: 0.04em;
-  text-transform: lowercase;
-  padding: 3px 8px !important;
-}
 
 /* back-to-top button — bottom-right. Slides up when footer enters the
    viewport so it clears the Rocinante sticker. */
