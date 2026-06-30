@@ -1,33 +1,27 @@
 <nav class="tlm-nav" data-tlm-nav>
   <div class="tlm-nav-row">
     <a href="#home" class="tlm-nav-brand">
-      <span class="node-id">[NODE-0014]</span>
-      <span>rutvik-patel</span>
+      <span class="node-id"><%= brand.node %></span>
+      <span><%= brand.name %></span>
     </a>
 
     <div class="tlm-nav-links">
-      <a href="#about"    data-section="about">about</a>
-      <a href="#research" data-section="research">research</a>
-      <a href="#projects" data-section="projects">projects</a>
-      <a href="#work"     data-section="work">industry</a>
-      <a href="#personal" data-section="personal">personal</a>
-      <a href="#contact"  data-section="contact">contact</a>
+      <% _.each(links, function(l) { %>
+        <a href="#<%= l.section %>" data-section="<%= l.section %>"><%= l.label %></a>
+      <% }); %>
     </div>
 
     <div class="status-pip" aria-label="status indicator">
       <span class="dot"></span>
-      <span>ONLINE · 2026</span>
+      <span><%= status %></span>
     </div>
 
     <button class="tlm-nav-burger" id="mobile-menu-btn" aria-label="menu">MENU</button>
   </div>
 
   <div class="tlm-mobile-menu" id="mobile-menu">
-    <a href="#about">about</a>
-    <a href="#research">research</a>
-    <a href="#projects">projects</a>
-    <a href="#work">industry</a>
-    <a href="#personal">personal</a>
-    <a href="#contact">contact</a>
+    <% _.each(links, function(l) { %>
+      <a href="#<%= l.section %>"><%= l.label %></a>
+    <% }); %>
   </div>
 </nav>

@@ -3,9 +3,45 @@
         "name": "Rutvik Patel",
         "tagline": "Built with discipline, driven by purpose"
     },
+    "navigation": {
+        "brand": {
+            "node": "[NODE-0014]",
+            "name": "rutvik-patel"
+        },
+        "status": "ONLINE · 2026",
+        "links": [
+            { "label": "about",    "section": "about" },
+            { "label": "research", "section": "research" },
+            { "label": "projects", "section": "projects" },
+            { "label": "industry", "section": "work" },
+            { "label": "personal", "section": "personal" },
+            { "label": "contact",  "section": "contact" }
+        ]
+    },
     "hero-section": {
         "title": "Robotics Engineer",
-        "subtitle": "Bridging the gap between Research and Real-World Robotics Applications"
+        "subtitle": "Bridging the gap between Research and Real-World Robotics Applications",
+        "name": "rutvik-patel",
+        "promptPath": "~/rutvik-patel",
+        "promptCmd": "whoami",
+        "avatar": {
+            "src": "static/assets/avatar.jpg",
+            "alt": "rutvik patel",
+            "caption": "// f1c517::p10n33r"
+        },
+        "actions": [
+            { "label": "publications", "href": "#research" },
+            { "label": "cv.pdf",       "href": "https://docs.google.com/document/d/1JKCgEzfOHy-LSHuaKEuqknPWnlCl-vYp/edit?usp=sharing&ouid=102852500589505457106&rtpof=true&sd=true", "external": true },
+            { "label": "github",       "href": "https://github.com/l0g1c-80m8", "external": true },
+            { "label": "contact",      "href": "#contact" }
+        ],
+        "meta": [
+            { "key": "role",     "value": "roboticist" },
+            { "key": "domain",   "value": "autonomy · manipulation" },
+            { "key": "based",    "value": "san francisco, ca" },
+            { "key": "runtime",  "value": "", "dynamic": "runtime" },
+            { "key": "station",  "value": "nimble robotics" }
+        ]
     },
     "about-section": {
         "about_lead": "I am a roboticist with demonstrated experience of working at hyper-growth startups. I am passionate about building technology-driven solutions to real-world challenges, particularly in the domains of manufacturing 🏭, agriculture 🌳 and space 🚀. I am eager to learn from mentors and peers who share my enthusiasm and vision.",
@@ -301,6 +337,44 @@
             "description": "Enthusiastic about story-driven games that blend rich characters, cinematic visuals, immersive mechanics, and powerful music — true masterpieces of modern interactive art.",
             "video": "https://www.youtube.com/embed/fllsKUNp8VA?si=8ERpr9DtfKjwCB7b",
             "gradient": "from-yellow-500/20 to-amber-500/20"
+        }
+    ],
+    "personal-interests": [
+        {
+            "idx": "I-001",
+            "icon": "fas fa-chess-knight",
+            "title": "game theory",
+            "description": "Exploring strategic decision-making models and competitive scenarios in gaming and real-world applications."
+        },
+        {
+            "idx": "I-002",
+            "icon": "fas fa-seedling",
+            "title": "food production",
+            "description": "Researching sustainable agriculture, urban farming, and innovations in food supply chains."
+        },
+        {
+            "idx": "I-003",
+            "icon": "fas fa-map-marked-alt",
+            "title": "cartography",
+            "description": "Passionate about map making, geospatial data visualization, and exploring geographic information systems."
+        },
+        {
+            "idx": "I-004",
+            "icon": "fas fa-industry",
+            "title": "factory optimization",
+            "description": "Drawn to factory layout and process optimization, both on real shop floors and in sims like Satisfactory and Factorio."
+        },
+        {
+            "idx": "I-005",
+            "icon": "fas fa-ship",
+            "title": "boats & rowing",
+            "description": "Exploring boat hull engineering, naval architecture, and rowing as a discipline of precision and repetition."
+        },
+        {
+            "idx": "I-006",
+            "icon": "fas fa-shield",
+            "title": "defense technologies",
+            "description": "Wargaming interception of incoming projectiles, autonomous surveillance and logistics platforms over air, seas, and land."
         }
     ],
     "contact-section": {

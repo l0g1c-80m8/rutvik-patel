@@ -4,15 +4,15 @@
     <div class="tlm-hero-prompt-stack">
       <div class="tlm-hero-prompt">
         <div class="left">
-          <span class="path">~/rutvik-patel</span>
+          <span class="path"><%= promptPath %></span>
           <span>$</span>
-          <span class="cmd">whoami</span>
+          <span class="cmd"><%= promptCmd %></span>
         </div>
-        <div>BUILD ${build} · LAST DEPLOY ${deploy}</div>
+        <div>BUILD <%= build %> · LAST DEPLOY <%= deploy %></div>
       </div>
       <div class="tlm-hero-prompt audio-line" id="audio-prompt" role="status" aria-live="polite" hidden>
         <div class="left">
-          <span class="path">~/rutvik-patel</span>
+          <span class="path"><%= promptPath %></span>
           <span>$</span>
           <span class="cmd">press</span>
           <kbd>space</kbd>
@@ -24,32 +24,34 @@
 
     <div class="tlm-hero-id">
       <h1 class="tlm-hero-name">
-        rutvik-patel<span class="cursor">.</span>
+        <%= name %><span class="cursor">.</span>
       </h1>
-      <figure class="tlm-hero-avatar">
-        <img src="static/assets/avatar.jpg" alt="rutvik patel" />
-        <figcaption>// f1c517::p10n33r</figcaption>
-      </figure>
+      <% if (avatar && avatar.src) { %>
+        <figure class="tlm-hero-avatar">
+          <img src="<%= avatar.src %>" alt="<%= avatar.alt %>" />
+          <figcaption><%= avatar.caption %></figcaption>
+        </figure>
+      <% } %>
     </div>
 
     <div class="tlm-hero-lines">
-      <div class="line">${title}</div>
-      <div class="line">${subtitle}</div>
+      <div class="line"><%= title %></div>
+      <div class="line"><%= subtitle %></div>
     </div>
 
     <div class="tlm-hero-actions">
-      <a class="tlm-action" href="#research">↗ publications</a>
-      <a class="tlm-action" href="https://docs.google.com/document/d/1JKCgEzfOHy-LSHuaKEuqknPWnlCl-vYp/edit?usp=sharing&ouid=102852500589505457106&rtpof=true&sd=true" target="_blank" rel="noopener noreferrer">↗ cv.pdf</a>
-      <a class="tlm-action" href="https://github.com/l0g1c-80m8" target="_blank" rel="noopener noreferrer">↗ github</a>
-      <a class="tlm-action" href="#contact">↗ contact</a>
+      <% _.each(actions, function(a) { %>
+        <a class="tlm-action" href="<%= a.href %>"<% if (a.external) { %> target="_blank" rel="noopener noreferrer"<% } %>>↗ <%= a.label %></a>
+      <% }); %>
     </div>
 
     <div class="tlm-hero-meta">
-      <div><span class="k">role</span><span class="v">roboticist</span></div>
-      <div><span class="k">domain</span><span class="v">autonomy · manipulation</span></div>
-      <div><span class="k">based</span><span class="v">san francisco, ca</span></div>
-      <div><span class="k">runtime</span><span class="v" id="hero-runtime">${runtime}</span></div>
-      <div><span class="k">station</span><span class="v">nimble robotics</span></div>
+      <% _.each(meta, function(m) { %>
+        <div>
+          <span class="k"><%= m.key %></span>
+          <span class="v"<% if (m.dynamic === 'runtime') { %> id="hero-runtime"<% } %>><%= m.value %></span>
+        </div>
+      <% }); %>
     </div>
 
   </div>
