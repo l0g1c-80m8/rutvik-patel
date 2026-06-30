@@ -19,18 +19,6 @@
   --ink-dim:       #4ADE80;        /* tertiary text — ~7:1 (still readable) */
   --signal:        #22D67B;        /* accent / active */
   --signal-bright: #33FF88;        /* hottest phosphor — cursor/glow */
-  --signal-soft:   #22d67b1a;
-  --signal-warn:   #FFB020;
-
-  /* legacy aliases so un-refactored sections still render coherently */
-  --robot-blue:    #22D67B;
-  --robot-purple:  #22D67B;
-  --robot-green:   #22D67B;
-  --dark-bg:       #000000;
-  --dark-card:     #050A07;
-  --text-primary:  #DCFCE7;
-  --text-secondary:#86EFAC;
-  --accent-glow:   transparent;
 
   /* type */
   --mono: 'JetBrains Mono', 'SF Mono', 'Berkeley Mono', ui-monospace, Menlo, monospace;
@@ -82,8 +70,8 @@ portfolio-navigation { z-index: 60; }
   color: var(--bg);
 }
 
-/* mono utility */
-.mono, code, kbd, samp, pre, .tag, .nav-link, h1, h2, h3, h4, h5, h6 {
+/* mono utility — applied to native monospace-y elements and all headings */
+code, kbd, samp, pre, h1, h2, h3, h4, h5, h6 {
   font-family: var(--mono);
 }
 
@@ -210,28 +198,6 @@ h3 { font-size: 1.25rem; }
 h4 { font-size: 1rem; }
 
 p { line-height: 1.6; color: var(--ink); }
-
-.label-cap {
-  font-family: var(--mono);
-  font-size: 0.6875rem;     /* 11px */
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--ink-mute);
-}
-
-.label-mono {
-  font-family: var(--mono);
-  font-size: 0.8125rem;
-  color: var(--ink-mute);
-}
-
-/* dotted leader (….….) used between key and value in spec rows */
-.leader {
-  flex: 1;
-  border-bottom: 1px dotted var(--ink-dim);
-  margin: 0 0.5rem;
-  transform: translateY(-4px);
-}
 
 /* -------------------------------------------------------------------------
    Section chrome
@@ -469,7 +435,6 @@ nav.tlm-nav.scrolled {
 
 @media (prefers-reduced-motion: reduce) {
   .tlm-audio-chip .eq i { animation: none; height: 70%; }
-  .tlm-audio-prompt .cursor { animation: none; }
 }
 
 
