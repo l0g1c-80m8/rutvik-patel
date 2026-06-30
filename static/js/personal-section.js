@@ -1,8 +1,10 @@
 class PersonalLifeSection extends HTMLElement {
   async connectedCallback() {
     const html = await window.templateLoader.loadTemplate('static/html/personal-section.html');
-
-    if (!html) return;
+    if (!html) {
+      window.dynamicComponentTracker.markLoaded();
+      return;
+    }
 
     this.innerHTML = html;
 
@@ -11,38 +13,33 @@ class PersonalLifeSection extends HTMLElement {
       const data = await res.json();
       const items = _.get(data, ['personal-life'], []);
       const container = this.querySelector('#personal-life-grid');
+      if (!container) return;
 
-      items.forEach(item => {
-        const card = document.createElement('div');
-        card.className = 'bg-dark-card rounded-xl overflow-hidden border border-gray-800 hover:border-robot-blue/50 transition-all group';
-
+      container.innerHTML = items.map((item, i) => {
+        const idx = `LOG-${String(i + 1).padStart(2, '0')}`;
         const media = item.video
-          ? `<iframe
-              class="w-full h-full object-cover opacity-80 relative z-10"
-              src="${item.video}?rel=0"
-              title="${item.title}"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen
-              referrerpolicy="strict-origin-when-cross-origin"
-            ></iframe>`
+          ? `<div class="tlm-log-video">
+               <iframe
+                 src="${item.video}?rel=0"
+                 title="${item.title}"
+                 frameborder="0"
+                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                 allowfullscreen
+                 referrerpolicy="strict-origin-when-cross-origin"
+               ></iframe>
+             </div>`
           : '';
-
-        card.innerHTML = `
-        <div class="h-48 bg-gradient-to-br ${item.gradient} relative overflow-hidden">
-            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-0"></div>
+        return `
+          <article class="tlm-log">
+            <header class="tlm-log-head">
+              <span class="tlm-log-idx">${idx}</span>
+              <span class="tlm-log-title">${(item.title || '').toLowerCase()}</span>
+            </header>
             ${media}
-            <div class="absolute bottom-4 left-4 z-20">
-            <h3 class="text-xl font-bold text-white">${item.title}</h3>
-            </div>
-        </div>
-        <div class="p-6">
-            <p class="text-gray-300">${item.description}</p>
-        </div>
+            <p class="tlm-log-desc">${item.description || ''}</p>
+          </article>
         `;
-        container.appendChild(card);
-      });
-
+      }).join('');
     } catch (err) {
       console.error('Error loading personal-life data:', err);
     }

@@ -986,6 +986,141 @@ footer.tlm-footer {
 }
 
 /* -------------------------------------------------------------------------
+   Beyond Robotics section — `~/logs` (video logs) + `~/interests` grid
+   ------------------------------------------------------------------------- */
+
+.tlm-subhead {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  color: var(--ink-mute);
+  margin: 48px 0 20px;
+  flex-wrap: wrap;
+}
+.tlm-subhead:first-of-type { margin-top: 0; }
+.tlm-subhead .path { color: var(--signal); }
+.tlm-subhead .cmd  { color: var(--ink); }
+
+/* Logs — one card per personal-life entry. */
+.tlm-logs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin-bottom: 8px;
+}
+
+.tlm-log {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--rule);
+  background: transparent;
+  transition: border-color 160ms ease;
+}
+.tlm-log:hover { border-color: var(--signal); }
+
+.tlm-log-head {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--rule);
+  font-family: var(--mono);
+}
+.tlm-log-idx {
+  color: var(--signal-bright);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  font-weight: 500;
+}
+.tlm-log-title {
+  color: var(--ink);
+  text-transform: lowercase;
+  letter-spacing: 0.02em;
+  font-weight: 500;
+  font-size: 0.9375rem;
+}
+
+.tlm-log-video {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background: var(--bg-elev);
+  border-bottom: 1px solid var(--rule);
+  overflow: hidden;
+}
+.tlm-log-video iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.tlm-log-desc {
+  padding: 14px 16px;
+  font-family: var(--sans);
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--ink-mute);
+  margin: 0;
+}
+
+/* Interests — compact mono cards, phosphor icon top-right */
+.tlm-interests-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.tlm-interest {
+  border: 1px solid var(--rule);
+  padding: 14px 16px;
+  transition: border-color 160ms ease, background 160ms ease;
+  background: transparent;
+}
+.tlm-interest:hover {
+  border-color: var(--signal);
+  background: rgba(34, 214, 123, 0.03);
+}
+
+.tlm-interest-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.tlm-interest-idx {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--signal-bright);
+  letter-spacing: 0.08em;
+  font-weight: 500;
+}
+.tlm-interest-icon {
+  color: var(--signal);
+  font-size: 0.95rem;
+}
+
+.tlm-interest-title {
+  font-family: var(--mono);
+  font-size: 0.9375rem;
+  color: var(--ink);
+  text-transform: lowercase;
+  letter-spacing: 0.02em;
+  margin: 0 0 6px;
+  font-weight: 500;
+}
+
+.tlm-interest-desc {
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: var(--ink-mute);
+  margin: 0;
+}
+
+/* -------------------------------------------------------------------------
    Contact section — terminal-flavored channel list + shell-style form
    ------------------------------------------------------------------------- */
 
