@@ -71,7 +71,9 @@
             "tags": ["Non-prehensile Manipulation", "Failure Prediction", "Robot Learning", "Manipulation"],
             "image": "static/assets/prefail.gif",
             "resources": {
-                "site": "https://prefail.github.io/prefail/"
+                "site": "https://zshanggu.github.io/zeyu-prefail/",
+                "paper": "https://zshanggu.github.io/zeyu-prefail/",
+                "supplementary": "https://zshanggu.github.io/zeyu-prefail/static/pdfs/Identifying_Precursor_of_Failure_in_Lift_and_Place_Task.pdf"
             }
         },
         {
