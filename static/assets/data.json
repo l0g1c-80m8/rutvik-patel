@@ -221,6 +221,7 @@
             "title": "Open Source Rover",
             "caption": "Mobile Robot",
             "detail": "Replicated JPL's Open Source Rover a a six-wheel rocker-bogie platform designed for outdoor traversal and educational robotics. Hands-on assembly, motor control, and teleoperation.",
+            "image": "static/assets/rover.png",
             "topic": ["Mobile Robotics", "Teleop", "Embedded Systems", "Mechanical Assembly", "Electronic assembly", "Wiring"],
             "resources": {
                 "video": "https://youtu.be/9VV51ORU85U?feature=shared",
