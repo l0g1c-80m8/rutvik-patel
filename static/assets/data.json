@@ -351,33 +351,33 @@
         },
         {
             "idx": "I-002",
-            "icon": "fas fa-seedling",
-            "title": "food production",
-            "description": "Researching sustainable agriculture, urban farming, and innovations in food supply chains."
-        },
-        {
-            "idx": "I-003",
             "icon": "fas fa-map-marked-alt",
             "title": "cartography",
             "description": "Passionate about map making, geospatial data visualization, and exploring geographic information systems."
         },
         {
-            "idx": "I-004",
-            "icon": "fas fa-industry",
-            "title": "factory optimization",
-            "description": "Drawn to factory layout and process optimization, both on real shop floors and in sims like Satisfactory and Factorio."
-        },
-        {
-            "idx": "I-005",
+            "idx": "I-003",
             "icon": "fas fa-ship",
             "title": "boats & rowing",
             "description": "Exploring boat hull engineering, naval architecture, and rowing as a discipline of precision and repetition."
         },
         {
-            "idx": "I-006",
+            "idx": "I-004",
             "icon": "fas fa-shield",
             "title": "defense technologies",
             "description": "Wargaming interception of incoming projectiles, autonomous surveillance and logistics platforms over air, seas, and land."
+        },
+        {
+            "idx": "I-005",
+            "icon": "fas fa-seedling",
+            "title": "food production",
+            "description": "Researching sustainable agriculture, urban farming, and innovations in food supply chains."
+        },
+        {
+            "idx": "I-006",
+            "icon": "fas fa-industry",
+            "title": "factory optimization",
+            "description": "Drawn to factory layout and process optimization, both on real shop floors and in sims like Satisfactory and Factorio."
         }
     ],
     "contact-section": {
